@@ -9,7 +9,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
 {
     public interface ICountryDataService
     {
-        public List<Country> GetCountries();
-        public bool CheckCountryExist(string country);
+        public Task<List<Country>> GetCountries();
+        public Task<bool> CheckCountryExist(string country);
     }
 }

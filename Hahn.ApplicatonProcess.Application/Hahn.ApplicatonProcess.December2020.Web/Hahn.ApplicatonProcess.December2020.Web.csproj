@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hahn.ApplicatonProcess.December2020.Data\Hahn.ApplicatonProcess.December2020.Data.csproj" />
+  </ItemGroup>
+
 </Project>

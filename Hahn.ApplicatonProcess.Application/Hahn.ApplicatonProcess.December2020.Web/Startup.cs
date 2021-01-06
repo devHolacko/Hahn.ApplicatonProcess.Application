@@ -1,5 +1,5 @@
 using Hahn.ApplicatonProcess.December2020.Data.Context;
-using Hahn.ApplicatonProcess.December2020.Data.Services;
+using Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService;
 using Hahn.ApplicatonProcess.December2020.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,10 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {

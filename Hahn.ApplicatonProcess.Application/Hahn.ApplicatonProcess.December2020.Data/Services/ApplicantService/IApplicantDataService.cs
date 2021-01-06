@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hahn.ApplicatonProcess.December2020.Data.Services
+namespace Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService
 {
     public interface IApplicantDataService
     {

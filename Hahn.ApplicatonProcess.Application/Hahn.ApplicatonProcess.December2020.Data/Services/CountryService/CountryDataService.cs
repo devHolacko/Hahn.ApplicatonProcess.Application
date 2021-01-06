@@ -25,7 +25,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
             }
         }
 
-        public async Task<List<Country>> GetCountries()
+        public async Task<List<KeyValuePair<string, string>>> GetCountries()
         {
             List<Country> countries = new List<Country>();
             using (HttpClient client = new HttpClient())
@@ -37,7 +37,9 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
                     countries = JsonConvert.DeserializeObject<List<Country>>(jsonResponse);
                 }
             }
-            return countries;
+            if (countries == null || !countries.Any())
+                return new List<KeyValuePair<string, string>>();
+            return countries.Select(c => new KeyValuePair<string, string>(c.numericCode, c.name)).ToList();
         }
     }
 }

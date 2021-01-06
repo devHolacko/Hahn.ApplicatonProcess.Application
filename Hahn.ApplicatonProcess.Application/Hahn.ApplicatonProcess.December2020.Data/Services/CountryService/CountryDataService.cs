@@ -20,7 +20,8 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
         {
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync(_apiUrl);
+                string fullRequestUrl = $"{_apiUrl}/name/{country}";
+                HttpResponseMessage response = await client.GetAsync(fullRequestUrl);
                 return response.IsSuccessStatusCode;
             }
         }

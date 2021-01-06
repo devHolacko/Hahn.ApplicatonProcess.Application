@@ -1,12 +1,19 @@
 ﻿using FluentValidation;
+using Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService;
+using Hahn.ApplicatonProcess.December2020.Data.Services.CountryService;
 using Hahn.ApplicatonProcess.December2020.Web.ViewModels;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Validators
 {
     public class CreateApplicantViewModelValidator : AbstractValidator<CreateApplicantViewModel>
     {
-        public CreateApplicantViewModelValidator()
+        private readonly ICountryDataService _countryDataService;
+        private readonly IApplicantDataService _applicantDataService;
+        public CreateApplicantViewModelValidator(ICountryDataService countryDataService,IApplicantDataService applicantDataService)
         {
+            _countryDataService = countryDataService;
+            _applicantDataService = applicantDataService;
+
             RuleFor(a => a.Name).NotEmpty().MinimumLength(5);
             RuleFor(a => a.FamilyName).NotEmpty().MinimumLength(5);
             RuleFor(a => a.Address).NotEmpty().MinimumLength(10);
@@ -16,7 +23,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators
 
         private bool IsValidCountry(string countryName)
         {
-            return false;
+            return _countryDataService.CheckCountryExist(countryName).Result;
         }
     }
 }

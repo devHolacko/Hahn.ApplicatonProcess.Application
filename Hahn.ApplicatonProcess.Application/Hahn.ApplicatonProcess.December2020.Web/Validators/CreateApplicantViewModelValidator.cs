@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Hahn.ApplicatonProcess.December2020.Data.ViewModels;
+using Hahn.ApplicatonProcess.December2020.Web.ViewModels;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Validators
 {

@@ -1,4 +1,6 @@
 using Hahn.ApplicatonProcess.December2020.Data.Context;
+using Hahn.ApplicatonProcess.December2020.Data.Services;
+using Hahn.ApplicatonProcess.December2020.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +28,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicantDbContext>(options => options.UseInMemoryDatabase(Configuration["DatabaseName"]));
+            services.AddScoped(typeof(IRepository<>), typeof(ApplicantRepository<>));
+            services.AddTransient<IApplicantDataService, ApplicantDataService>();
             services.AddControllers();
         }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Services
 {
-    public class ApplicantDataService
+    public class ApplicantDataService : IApplicantDataService
     {
         private readonly IRepository<Applicant> _applicantRepository;
         public ApplicantDataService(IRepository<Applicant> applicantRepository)
@@ -54,7 +54,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services
             if (string.IsNullOrWhiteSpace(searchKeyword))
                 return _applicantRepository.Filter(c => c.Active).ToList();
 
-            return _applicantRepository.Filter(c => 
+            return _applicantRepository.Filter(c =>
             c.Name.Contains(searchKeyword) || c.FamilyName.Contains(searchKeyword) || c.Address.Contains(searchKeyword)
             || Convert.ToString(c.Age).Contains(searchKeyword) || c.CountryOfOrigin.Contains(searchKeyword)
             || c.EmailAddress.Contains(searchKeyword) || Convert.ToString(c.Hired).Contains(searchKeyword))

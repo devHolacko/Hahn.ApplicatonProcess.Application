@@ -10,9 +10,9 @@ namespace Hahn.ApplicatonProcess.December2020.Domain.Interfaces
     {
         bool Create(TEntity entity);
         bool Delete(TEntity entity);
-        bool Delete(Guid id);
+        bool Delete(int id);
         bool Edit(TEntity entity);
-        TEntity GetById(Guid id);
+        TEntity GetById(int id);
         IEnumerable<TEntity> Filter(Func<TEntity, bool> predicate);
         bool SaveChanges();
     }

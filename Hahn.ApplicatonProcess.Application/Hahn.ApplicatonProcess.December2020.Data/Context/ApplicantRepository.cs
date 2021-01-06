@@ -28,7 +28,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Context
             return SaveChanges();
         }
 
-        public bool Delete(Guid id)
+        public bool Delete(int id)
         {
             var entityToDelete = _context.Set<T>().FirstOrDefault(e => e.Id == id);
             if (entityToDelete != null)
@@ -46,7 +46,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Context
             return SaveChanges();
         }
 
-        public T GetById(Guid id)
+        public T GetById(int id)
         {
             var query = _context.Set<T>().AsQueryable();
             return query.FirstOrDefault(e => e.Id == id);

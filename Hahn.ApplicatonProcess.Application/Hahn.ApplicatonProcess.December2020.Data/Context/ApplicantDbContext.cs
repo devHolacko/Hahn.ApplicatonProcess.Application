@@ -34,7 +34,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Context
 
                 entity.Property(e => e.Hired).HasDefaultValue(false);
                 entity.Property(e => e.Active).HasDefaultValue(true);
-                entity.Property(e => e.Id).ValueGeneratedOnAdd().HasDefaultValueSql("NEWID()");
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.Property(e => e.CreatedOn).ValueGeneratedOnAdd().HasDefaultValueSql("GETUTCDATE()");
                 entity.Property(e => e.ModifiedOn).ValueGeneratedOnUpdate().HasDefaultValueSql("GETUTCDATE()");
             });

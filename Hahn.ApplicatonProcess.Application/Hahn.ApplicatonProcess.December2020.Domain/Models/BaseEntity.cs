@@ -9,7 +9,7 @@ namespace Hahn.ApplicatonProcess.December2020.Domain.Models
 {
     public abstract class BaseEntity : IBaseEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public bool Active { get; set; }

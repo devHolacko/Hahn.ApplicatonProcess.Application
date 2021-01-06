@@ -1,5 +1,6 @@
 using Hahn.ApplicatonProcess.December2020.Data.Context;
 using Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService;
+using Hahn.ApplicatonProcess.December2020.Data.Services.CountryService;
 using Hahn.ApplicatonProcess.December2020.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddDbContext<ApplicantDbContext>(options => options.UseInMemoryDatabase(Configuration["DatabaseName"]));
             services.AddScoped(typeof(IRepository<>), typeof(ApplicantRepository<>));
             services.AddTransient<IApplicantDataService, ApplicantDataService>();
+            services.AddSingleton<ICountryDataService>(x => new CountryDataService(Configuration["CountriesBaseUrl"]));
             services.AddControllers();
         }
 

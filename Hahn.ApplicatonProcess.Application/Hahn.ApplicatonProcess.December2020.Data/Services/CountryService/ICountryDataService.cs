@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hahn.ApplicatonProcess.December2020.Domain.Models.Country;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
 {
     public interface ICountryDataService
     {
-
+        public List<Country> GetCountries();
+        public bool CheckCountryExist(string country);
     }
 }

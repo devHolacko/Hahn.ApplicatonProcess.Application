@@ -27,7 +27,17 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
 
         public async Task<List<Country>> GetCountries()
         {
-            throw new NotImplementedException();
+            List<Country> countries = new List<Country>();
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(_apiUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    countries = JsonConvert.DeserializeObject<List<Country>>(jsonResponse);
+                }
+            }
+            return countries;
         }
     }
 }

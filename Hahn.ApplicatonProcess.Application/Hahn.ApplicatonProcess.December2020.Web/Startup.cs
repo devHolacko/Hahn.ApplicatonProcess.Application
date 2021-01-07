@@ -1,7 +1,9 @@
+using AutoMapper;
 using Hahn.ApplicatonProcess.December2020.Data.Context;
 using Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService;
 using Hahn.ApplicatonProcess.December2020.Data.Services.CountryService;
 using Hahn.ApplicatonProcess.December2020.Domain.Interfaces;
+using Hahn.ApplicatonProcess.December2020.Web.Mappings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +30,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddScoped(typeof(IRepository<>), typeof(ApplicantRepository<>));
             services.AddTransient<IApplicantDataService, ApplicantDataService>();
             services.AddSingleton<ICountryDataService>(x => new CountryDataService(Configuration["CountriesBaseUrl"]));
+            services.AddAutoMapper(typeof(ApplicantMapper));
             services.AddControllers();
         }
 

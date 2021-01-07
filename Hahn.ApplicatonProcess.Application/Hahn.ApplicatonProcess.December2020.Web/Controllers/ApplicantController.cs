@@ -3,16 +3,12 @@ using Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService;
 using Hahn.ApplicatonProcess.December2020.Data.Services.CountryService;
 using Hahn.ApplicatonProcess.December2020.Domain.Models;
 using Hahn.ApplicatonProcess.December2020.Web.Validators;
-using Hahn.ApplicatonProcess.December2020.Web.ViewModels;
+using Hahn.ApplicatonProcess.December2020.Web.ViewModels.Applicant;
 using Hahn.ApplicatonProcess.December2020.Web.ViewModels.Base;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 {

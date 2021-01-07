@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService;
 using Hahn.ApplicatonProcess.December2020.Data.Services.CountryService;
-using Hahn.ApplicatonProcess.December2020.Web.ViewModels;
+using Hahn.ApplicatonProcess.December2020.Web.ViewModels.Applicant;
 using Microsoft.Extensions.Configuration;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Validators

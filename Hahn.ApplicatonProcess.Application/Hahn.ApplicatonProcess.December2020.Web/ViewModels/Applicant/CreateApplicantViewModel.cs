@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hahn.ApplicatonProcess.December2020.Web.ViewModels
+namespace Hahn.ApplicatonProcess.December2020.Web.ViewModels.Applicant
 {
     public class CreateApplicantViewModel
     {

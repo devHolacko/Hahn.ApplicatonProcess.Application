@@ -112,7 +112,24 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
                 return new NotFoundObjectResult(failureResponse);
             }
             bool result = _applicantDataService.Delete(id);
-            GenericResponse response = new GenericResponse { Success = result};
+            GenericResponse response = new GenericResponse { Success = result };
+            return new OkObjectResult(response);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(DataGenericResponse<List<ApplicantListItem>>), 200)]
+        [ProducesResponseType(typeof(GenericResponse), 404)]
+        [Route("size/{pageSize}/page/{pageNumber}")]
+        public IActionResult Get([FromRoute(Name = "pageSize")] int pageSize, [FromRoute(Name = "pageNumber")] int pageNumber, string search = "")
+        {
+            List<Applicant> applicants = _applicantDataService.GetApplicantsWithPaging(search);
+            if (applicants == null)
+            {
+                GenericResponse failureResponse = new GenericResponse { Success = false };
+                return new NotFoundObjectResult(failureResponse);
+            }
+            List<ApplicantListItem> mappedApplicants = _mapper.Map<List<ApplicantListItem>>(applicants);
+            DataGenericResponse<List<ApplicantListItem>> response = new DataGenericResponse<List<ApplicantListItem>> { Success = true, Data = mappedApplicants };
             return new OkObjectResult(response);
         }
     }

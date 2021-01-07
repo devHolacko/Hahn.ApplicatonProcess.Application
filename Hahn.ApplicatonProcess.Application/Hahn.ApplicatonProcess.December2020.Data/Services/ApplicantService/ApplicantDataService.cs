@@ -49,6 +49,11 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService
             return _applicantRepository.Delete(id);
         }
 
+        public IEnumerable<Applicant> Filter(Func<Applicant,bool> predicate)
+        {
+            return _applicantRepository.Filter(predicate);
+        }
+
         public List<Applicant> GetApplicantsWithPaging(string searchKeyword)
         {
             if (string.IsNullOrWhiteSpace(searchKeyword))

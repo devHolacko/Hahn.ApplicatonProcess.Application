@@ -74,5 +74,29 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             }
             return new OkObjectResult(response);
         }
+
+        [HttpPut]
+        [ProducesResponseType(typeof(GenericResponse), 200)]
+        [ProducesResponseType(typeof(DataGenericResponse<List<KeyValuePair<string, string>>>), 400)]
+        public IActionResult Update([FromBody] UpdateApplicantViewModel request)
+        {
+            UpdateApplicantViewModelValidator validator = new UpdateApplicantViewModelValidator(_countryDataService, _applicantDataService, _configuration);
+            var validationResult = validator.Validate(request);
+            if (!validationResult.IsValid)
+            {
+                DataGenericResponse<List<KeyValuePair<string, string>>> failureResponse = new DataGenericResponse<List<KeyValuePair<string, string>>>();
+                failureResponse.Success = false;
+                foreach (var error in validationResult.Errors)
+                {
+                    failureResponse.Data.Add(new KeyValuePair<string, string>(error.PropertyName, error.ErrorMessage));
+                }
+                return new BadRequestObjectResult(failureResponse);
+            }
+            Applicant mappedApplicant = _mapper.Map<Applicant>(request);
+            bool result = _applicantDataService.Update(mappedApplicant);
+            GenericResponse response = new GenericResponse { Success = result };
+
+            return new OkObjectResult(response);
+        }
     }
 }

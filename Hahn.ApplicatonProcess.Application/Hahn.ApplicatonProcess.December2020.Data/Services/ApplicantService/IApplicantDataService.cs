@@ -14,6 +14,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService
         Applicant Get(int id);
         bool Update(Applicant applicant);
         bool Delete(int id);
+        IEnumerable<Applicant> Filter(Func<Applicant, bool> predicate);
         List<Applicant> GetApplicantsWithPaging(string searchKeyword);
     }
 }

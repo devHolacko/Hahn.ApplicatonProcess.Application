@@ -10,7 +10,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Context
 {
     public class ApplicantDbContext : DbContext
     {
-        public ApplicantDbContext()
+        public ApplicantDbContext(DbContextOptions<ApplicantDbContext> options) : base(options)
         {
 
         }

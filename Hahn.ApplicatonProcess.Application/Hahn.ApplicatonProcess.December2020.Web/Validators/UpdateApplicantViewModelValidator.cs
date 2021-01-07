@@ -26,7 +26,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators
             RuleFor(a => a.CountryOfOrigin).NotEmpty().Must(IsValidCountry);
             RuleFor(a => a.EmailAddress).NotEmpty().EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible);
             RuleFor(a => a).Must(x => IsUniqueEmail(x.Id, x.EmailAddress));
-            RuleFor(a => a.Age).LessThanOrEqualTo(_configuration.GetValue<int>("Validations:Applicant:AgeMinimumValue")).GreaterThanOrEqualTo(_configuration.GetValue<int>("Validations:Applicant:AgeMaximumValue"));
+            RuleFor(a => a.Age).GreaterThanOrEqualTo(_configuration.GetValue<int>("Validations:Applicant:AgeMinimumValue")).LessThanOrEqualTo(_configuration.GetValue<int>("Validations:Applicant:AgeMaximumValue"));
         }
 
         private bool IsValidCountry(string countryName)

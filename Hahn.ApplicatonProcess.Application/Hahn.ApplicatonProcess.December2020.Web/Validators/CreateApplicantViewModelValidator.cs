@@ -22,7 +22,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators
             RuleFor(a => a.Address).NotEmpty().MinimumLength(configuration.GetValue<int>("Validations:Applicant:AddressMinimumLength"));
             RuleFor(a => a.CountryOfOrigin).NotEmpty().Must(IsValidCountry);
             RuleFor(a => a.EmailAddress).NotEmpty().EmailAddress(FluentValidation.Validators.EmailValidationMode.AspNetCoreCompatible).Must(IsUniqueEmail);
-            RuleFor(a => a.Age).LessThanOrEqualTo(configuration.GetValue<int>("Validations:Applicant:AgeMinimumValue")).GreaterThanOrEqualTo(configuration.GetValue<int>("Validations:Applicant:AgeMaximumValue"));
+            RuleFor(a => a.Age).GreaterThanOrEqualTo(configuration.GetValue<int>("Validations:Applicant:AgeMinimumValue")).LessThanOrEqualTo(configuration.GetValue<int>("Validations:Applicant:AgeMaximumValue"));
         }
 
         private bool IsValidCountry(string countryName)
@@ -32,7 +32,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Validators
 
         private bool IsUniqueEmail(string email)
         {
-            return _applicantDataService.CheckEmailDuplicate(email);
+            bool emailDuplicate = _applicantDataService.CheckEmailDuplicate(email);
+            return !emailDuplicate;
         }
     }
 }

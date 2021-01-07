@@ -19,14 +19,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
     [ApiController]
     public class ApplicantController : BaseApiController
     {
-        private readonly IStringLocalizer<ApplicantController> _localizer;
+        //private readonly IStringLocalizer<ApplicantController> _localizer;
         private readonly IApplicantDataService _applicantDataService;
         private readonly ICountryDataService _countryDataService;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
-        public ApplicantController(IStringLocalizer<ApplicantController> localizer, IApplicantDataService applicantDataService, ICountryDataService countryDataService, IConfiguration configuration, IMapper mapper)
+        public ApplicantController(IApplicantDataService applicantDataService, ICountryDataService countryDataService, IConfiguration configuration, IMapper mapper)
         {
-            _localizer = localizer;
+            //_localizer = localizer;
             _applicantDataService = applicantDataService;
             _countryDataService = countryDataService;
             _configuration = configuration;
@@ -77,6 +77,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             {
                 DataGenericResponse<List<KeyValuePair<string, string>>> failureResponse = new DataGenericResponse<List<KeyValuePair<string, string>>>();
                 failureResponse.Success = false;
+                failureResponse.Data = new List<KeyValuePair<string, string>>();
                 foreach (var error in validationResult.Errors)
                 {
                     failureResponse.Data.Add(new KeyValuePair<string, string>(error.PropertyName, error.ErrorMessage));
@@ -111,6 +112,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             {
                 DataGenericResponse<List<KeyValuePair<string, string>>> failureResponse = new DataGenericResponse<List<KeyValuePair<string, string>>>();
                 failureResponse.Success = false;
+                failureResponse.Data = new List<KeyValuePair<string, string>>();
                 foreach (var error in validationResult.Errors)
                 {
                     failureResponse.Data.Add(new KeyValuePair<string, string>(error.PropertyName, error.ErrorMessage));

@@ -9,6 +9,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Mappings
         public ApplicantMapper()
         {
             CreateMap<CreateApplicantViewModel, Applicant>();
+            CreateMap<Applicant, ApplicantViewModel>();
         }
     }
 }

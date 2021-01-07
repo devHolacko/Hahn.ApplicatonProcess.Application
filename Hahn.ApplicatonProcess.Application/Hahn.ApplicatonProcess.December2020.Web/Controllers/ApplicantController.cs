@@ -98,5 +98,22 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 
             return new OkObjectResult(response);
         }
+
+        [HttpDelete]
+        [ProducesResponseType(typeof(GenericResponse), 200)]
+        [ProducesResponseType(typeof(GenericResponse), 404)]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute(Name = "id")] int id)
+        {
+            Applicant applicant = _applicantDataService.Get(id);
+            if (applicant == null)
+            {
+                GenericResponse failureResponse = new GenericResponse { Success = false };
+                return new NotFoundObjectResult(failureResponse);
+            }
+            bool result = _applicantDataService.Delete(id);
+            GenericResponse response = new GenericResponse { Success = result};
+            return new OkObjectResult(response);
+        }
     }
 }

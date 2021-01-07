@@ -19,9 +19,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             _countryDataService = countryDataService;
         }
 
-
+        /// <summary>
+        /// An api that gets all countries as lookup
+        /// </summary>
+        /// <returns>List of key value pair for all countries</returns>
+        /// <response code="201">Returns the list of the countries</response>
         [HttpGet]
-        [ProducesResponseType(typeof(DataGenericResponse<List<KeyValuePair<string, string>>>), 200)]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DataGenericResponse<List<KeyValuePair<string, string>>>))]
         public async Task<IActionResult> GetCountriesLookup()
         {
             List<KeyValuePair<string, string>> countries = await _countryDataService.GetCountries();

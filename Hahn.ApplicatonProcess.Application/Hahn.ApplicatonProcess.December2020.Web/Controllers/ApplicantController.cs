@@ -5,6 +5,7 @@ using Hahn.ApplicatonProcess.December2020.Domain.Models;
 using Hahn.ApplicatonProcess.December2020.Web.Validators;
 using Hahn.ApplicatonProcess.December2020.Web.ViewModels.Applicant;
 using Hahn.ApplicatonProcess.December2020.Web.ViewModels.Base;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using System.Collections.Generic;
 namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class ApplicantController : BaseApiController
     {
@@ -32,22 +34,16 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         /// <summary>
-        /// An api that gets all countries as lookup
+        /// An api that gets an applicant's details given the applicant's id
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     GET /1
-        ///
-        /// </remarks>
-        /// <returns>List of key value pair for all countries</returns>
+        /// <returns>Applicant's data</returns>
         /// <response code="200">Returns the selected applicant</response>
-        /// /// <response code="404">If the applicant is not found</response>
+        /// <response code="404">If the applicant is not found</response>
         [HttpGet]
+        [Route("{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DataGenericResponse<ApplicantViewModel>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(GenericResponse))]
-        [Route("{id}")]
         public IActionResult Get([FromRoute(Name = "id")] int id)
         {
             Applicant applicant = _applicantDataService.Get(id);
@@ -61,9 +57,18 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             return new OkObjectResult(response);
         }
 
+        /// <summary>
+        /// An api that creates a new applicant
+        /// </summary>
+        /// <param name="request">
+        /// </param>
+        /// <returns>Returns created applicant url</returns>
+        /// <response code="200">Returns the created applicant url</response>
+        /// <response code="400">If the request data is invalid</response>
         [HttpPost]
-        [ProducesResponseType(typeof(DataGenericResponse<int>), 200)]
-        [ProducesResponseType(typeof(DataGenericResponse<List<KeyValuePair<string, string>>>), 400)]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DataGenericResponse<int>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DataGenericResponse<List<KeyValuePair<string, string>>>))]
         public IActionResult Create([FromBody] CreateApplicantViewModel request)
         {
             CreateApplicantViewModelValidator validator = new CreateApplicantViewModelValidator(_countryDataService, _applicantDataService, _configuration);
@@ -89,6 +94,12 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             return new OkObjectResult(response);
         }
 
+        /// <summary>
+        /// An api tha updates an existing applicant
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200">Returns the requests result</response>
+        /// <response code="400">If the request data is invalid</response>
         [HttpPut]
         [ProducesResponseType(typeof(GenericResponse), 200)]
         [ProducesResponseType(typeof(DataGenericResponse<List<KeyValuePair<string, string>>>), 400)]
@@ -113,10 +124,17 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             return new OkObjectResult(response);
         }
 
+        /// <summary>
+        /// An api that deletes an applicant's details given the applicant's id
+        /// </summary>
+        /// <returns>Request's status</returns>
+        /// <response code="200">Returns the request's status</response>
+        /// <response code="404">If the applicant is not found</response>
         [HttpDelete]
-        [ProducesResponseType(typeof(GenericResponse), 200)]
-        [ProducesResponseType(typeof(GenericResponse), 404)]
         [Route("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GenericResponse))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(GenericResponse))]
         public IActionResult Delete([FromRoute(Name = "id")] int id)
         {
             Applicant applicant = _applicantDataService.Get(id);
@@ -130,9 +148,16 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             return new OkObjectResult(response);
         }
 
+        /// <summary>
+        /// An api that gets all the applicants' list with paging
+        /// </summary>
+        /// <returns>List of applicants</returns>
+        /// <response code="200">Returns list of applicant</response>
+        /// <response code="404">If no applicants found</response>
         [HttpGet]
-        [ProducesResponseType(typeof(DataGenericResponse<List<ApplicantListItem>>), 200)]
-        [ProducesResponseType(typeof(GenericResponse), 404)]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DataGenericResponse<List<ApplicantListItem>>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(GenericResponse))]
         [Route("size/{pageSize}/page/{pageNumber}")]
         public IActionResult Get([FromRoute(Name = "pageSize")] int pageSize, [FromRoute(Name = "pageNumber")] int pageNumber, string search = "")
         {

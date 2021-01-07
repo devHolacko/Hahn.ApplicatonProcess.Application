@@ -5,6 +5,7 @@ using Hahn.ApplicatonProcess.December2020.Domain.Models;
 using Hahn.ApplicatonProcess.December2020.Web.Validators;
 using Hahn.ApplicatonProcess.December2020.Web.ViewModels.Applicant;
 using Hahn.ApplicatonProcess.December2020.Web.ViewModels.Base;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
@@ -30,9 +31,22 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// An api that gets all countries as lookup
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /1
+        ///
+        /// </remarks>
+        /// <returns>List of key value pair for all countries</returns>
+        /// <response code="200">Returns the selected applicant</response>
+        /// /// <response code="404">If the applicant is not found</response>
         [HttpGet]
-        [ProducesResponseType(typeof(DataGenericResponse<ApplicantViewModel>), 200)]
-        [ProducesResponseType(typeof(GenericResponse), 404)]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DataGenericResponse<ApplicantViewModel>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(GenericResponse))]
         [Route("{id}")]
         public IActionResult Get([FromRoute(Name = "id")] int id)
         {

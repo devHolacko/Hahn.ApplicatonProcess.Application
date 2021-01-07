@@ -31,12 +31,20 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Applicant), 200)]
+        [ProducesResponseType(typeof(DataGenericResponse<ApplicantViewModel>), 200)]
+        [ProducesResponseType(typeof(GenericResponse), 404)]
         [Route("{id}")]
         public IActionResult Get([FromRoute(Name = "id")] int id)
         {
             Applicant applicant = _applicantDataService.Get(id);
-            return new OkObjectResult(applicant);
+            if (applicant == null)
+            {
+                GenericResponse failureResponse = new GenericResponse { Success = false };
+                return new NotFoundObjectResult(failureResponse);
+            }
+            ApplicantViewModel mappedApplicant = _mapper.Map<ApplicantViewModel>(applicant);
+            DataGenericResponse<ApplicantViewModel> response = new DataGenericResponse<ApplicantViewModel> { Success = true, Data = mappedApplicant };
+            return new OkObjectResult(response);
         }
 
         [HttpPost]

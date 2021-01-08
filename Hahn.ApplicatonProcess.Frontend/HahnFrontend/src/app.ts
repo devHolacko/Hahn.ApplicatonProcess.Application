@@ -8,12 +8,19 @@ export class App {
     config.title = 'Title';
     config.map([
       {
-        route: 'applicants', name: 'applicants',
+        route: 'applicans', redirect: 'applicants/list'
+      },
+      {
+        route: 'applicants/list', name: 'applicants/list',
         moduleId: PLATFORM.moduleName('./applicants/list/applicants-list'), title: 'Applicants'
       },
       {
+        route: 'applicants/create', name: 'applicants/create',
+        moduleId: PLATFORM.moduleName('./applicants/create/create-applicant'), title: 'Create'
+      },
+      {
         route: '',
-        redirect: 'applicants'
+        redirect: 'applicants/list'
       }
     ]);
     this.router = router;

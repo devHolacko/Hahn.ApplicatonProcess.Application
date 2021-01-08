@@ -3,6 +3,7 @@ import { PLATFORM } from 'aurelia-pal';
 
 export class App {
   public message = 'Hello World!';
+  public currentUrl = window.location.href;
   router: Router;
   configureRouter(config: RouterConfiguration, router: Router): void {
     config.title = 'Hahn';

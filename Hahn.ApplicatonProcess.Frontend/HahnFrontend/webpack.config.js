@@ -247,6 +247,9 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
         baseUrl
       }
     }),
+    new CopyWebpackPlugin([
+      { from: 'src/resources/locales/', to: 'locales/' }
+    ]),
     // ref: https://webpack.js.org/plugins/mini-css-extract-plugin/
     ...when(extractCss, new MiniCssExtractPlugin({ // updated to match the naming conventions for the js files
       filename: production ? '[name].[contenthash].bundle.css' : '[name].[hash].bundle.css',

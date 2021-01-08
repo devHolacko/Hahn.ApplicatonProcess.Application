@@ -1,10 +1,17 @@
 import { RouterConfiguration, Router } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
+import { I18N } from 'aurelia-i18n';
 
 export class App {
   public message = 'Hello World!';
   public currentUrl = window.location.href;
   router: Router;
+  localization: I18N;
+  constructor(i18n: I18N) {
+    this.localization = i18n;
+    this.localization.setLocale("en-EN").then();
+  }
+
   configureRouter(config: RouterConfiguration, router: Router): void {
     config.title = 'Hahn';
     config.map([

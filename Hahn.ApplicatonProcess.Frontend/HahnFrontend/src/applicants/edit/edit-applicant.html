@@ -1,3 +1,53 @@
 <template>
-  <h1>Welcome to edit applicant</h1>
+  <template>
+    <div class="jumbotron text-center">
+      <h3>${'EditApplicant.Title' | t}</h3>
+    </div>
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">${'EditApplicant.Name' | t}</label>
+          <input type="text" class="form-control" placeholder="${'EditApplicant.NamePlaceholder' | t}">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">${'EditApplicant.FamilyName' | t}</label>
+          <input type="text" class="form-control" placeholder="${'EditApplicant.FamilyNamePlaceholder' | t}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAddress">${'EditApplicant.Address' | t}</label>
+        <input type="text" class="form-control" placeholder="${'EditApplicant.Address' | t}">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputState">State</label>
+          <select id="inputState" class="form-control">
+            <option selected>Choose...</option>
+            <option>...</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">${'EditApplicant.Email' | t}</label>
+          <input type="text" class="form-control" placeholder="${'EditApplicant.EmailPlaceholder' | t}">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">${'EditApplicant.Age' | t}</label>
+          <input type="number" class="form-control" placeholder="${'EditApplicant.AgePlaceholder' | t}">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox">
+          <label class="form-check-label" for="gridCheck">
+            ${'EditApplicant.Hired' | t}
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">${'EditApplicant.Save' | t}</button>
+      <button type="button" class="btn btn-danger">${'EditApplicant.Cancel' | t}</button>
+    </form>
+  </template>
+
 </template>

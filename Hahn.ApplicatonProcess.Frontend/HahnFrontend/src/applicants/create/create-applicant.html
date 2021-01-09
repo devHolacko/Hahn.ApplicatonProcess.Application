@@ -1,3 +1,50 @@
 <template>
-  Welcome to create applicant
+  <div class="jumbotron text-center">
+    <h3>${'CreateApplicant.Title' | t}</h3>
+  </div>
+  <form>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">${'CreateApplicant.Name' | t}</label>
+        <input type="text" class="form-control" placeholder="${'CreateApplicant.NamePlaceholder' | t}">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">${'CreateApplicant.FamilyName' | t}</label>
+        <input type="text" class="form-control" placeholder="${'CreateApplicant.FamilyNamePlaceholder' | t}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAddress">${'CreateApplicant.Address' | t}</label>
+      <input type="text" class="form-control" placeholder="${'CreateApplicant.Address' | t}">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputState">State</label>
+        <select id="inputState" class="form-control">
+          <option selected>Choose...</option>
+          <option>...</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">${'CreateApplicant.Email' | t}</label>
+        <input type="text" class="form-control" placeholder="${'CreateApplicant.EmailPlaceholder' | t}">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">${'CreateApplicant.Age' | t}</label>
+        <input type="number" class="form-control" placeholder="${'CreateApplicant.AgePlaceholder' | t}">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <label class="form-check-label" for="gridCheck">
+          ${'CreateApplicant.Hired' | t}
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">${'CreateApplicant.Save' | t}</button>
+    <button type="button" class="btn btn-danger">${'CreateApplicant.Reset' | t}</button>
+  </form>
 </template>

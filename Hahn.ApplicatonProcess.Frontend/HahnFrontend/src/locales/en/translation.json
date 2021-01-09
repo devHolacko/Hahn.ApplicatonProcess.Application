@@ -4,5 +4,23 @@
     "Language": "Language",
     "En": "En",
     "De": "De"
+  },
+  "CreateApplicant": {
+    "Title": "Create a new applicant",
+    "Name": "Name",
+    "NamePlaceholder": "Please enter name",
+    "FamilyName": "Family Name",
+    "FamilyNamePlaceholder": "Please enter Family Name",
+    "Address": "Address",
+    "AddressPlaceholder": "Please enter address",
+    "Country": "Country Of Origin",
+    "CountryPlaceholder": "Please select country of origin",
+    "Email": "Email",
+    "EmailPlaceholder": "Please enter email",
+    "Age": "Age",
+    "AgePlaceholder": "Please enter age",
+    "Hired": "Hired",
+    "Save": "Save",
+    "Reset": "Reset"
   }
 }

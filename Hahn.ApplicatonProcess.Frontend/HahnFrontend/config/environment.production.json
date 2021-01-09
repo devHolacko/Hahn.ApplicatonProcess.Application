@@ -1,6 +1,6 @@
 {
   "debug": false,
   "testing": false,
-  "apiUrl": "https://localhost:44302/api",
-  "applicants": "applicant"
+  "applicants": "applicant",
+  "countries": "countries"
 }

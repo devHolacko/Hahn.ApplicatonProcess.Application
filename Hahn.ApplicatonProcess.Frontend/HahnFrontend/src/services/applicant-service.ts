@@ -4,7 +4,7 @@ import * as environment from "../../config/environment.json";
 import { DataGenericResponse } from '../models/general/data-generic-response';
 import { GenericResponse } from '../models/general/generic-response';
 import { GetApplicantByIdResponse } from '../models/applicants/response/get-applicant-by-id';
-import { Promise } from 'promise-polyfill';
+import { Promise } from '../../node_modules/promise-polyfill/src';
 import { CreateApplicant } from '../models/applicants/request/create-applicant';
 import { EditApplicant } from '../models/applicants/request/edit-applicant';
 import { KeyValuePair } from '../models/general/key-value-pair';

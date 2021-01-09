@@ -40,5 +40,12 @@
     "Hired": "Hired",
     "Save": "Save",
     "Cancel": "Cancel"
+  },
+  "ApplicantsList": {
+    "Title": "Applicants list",
+    "Name": "Name",
+    "FamilyName": "Family Name",
+    "Country": "Country",
+    "Hired": "Hired"
   }
 }

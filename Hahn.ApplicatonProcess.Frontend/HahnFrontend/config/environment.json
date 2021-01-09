@@ -1,4 +1,6 @@
 {
   "debug": true,
-  "testing": true
+  "testing": true,
+  "apiUrl": "https://localhost:44302/api",
+  "applicants": "applicant"
 }

@@ -5,7 +5,7 @@ import { DataGenericResponse } from '../models/general/data-generic-response';
 import { GenericResponse } from '../models/general/generic-response';
 import { GetApplicantByIdResponse } from '../models/applicants/response/get-applicant-by-id';
 import { Promise } from '../../node_modules/promise-polyfill/src';
-import { CreateApplicant } from '../models/applicants/request/create-applicant';
+import { CreateApplicantRequest } from '../models/applicants/request/create-applicant';
 import { EditApplicant } from '../models/applicants/request/edit-applicant';
 import { KeyValuePair } from '../models/general/key-value-pair';
 import { ApplicantListItem } from '../models/applicants/response/applicant-list-item';
@@ -29,7 +29,7 @@ export class ApplicantService {
     });
   }
 
-  public createApplicant(request: CreateApplicant):
+  public createApplicant(request: CreateApplicantRequest):
     Promise<DataGenericResponse<number>> | Promise<DataGenericResponse<KeyValuePair<string, string>[]>> {
     this.httpClient.post(this.applicantsUrl, request).then(result => {
       const response: DataGenericResponse<number> = JSON.parse(result.response);

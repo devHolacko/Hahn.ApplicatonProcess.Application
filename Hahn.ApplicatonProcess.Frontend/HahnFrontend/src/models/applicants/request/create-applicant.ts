@@ -1,4 +1,4 @@
-export class CreateApplicant {
+export class CreateApplicantRequest {
   name: string;
   familyName: string;
   address: string;

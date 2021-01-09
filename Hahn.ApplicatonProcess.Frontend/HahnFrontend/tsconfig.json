@@ -20,7 +20,8 @@
     "allowJs": true,
     "types": [
       "i18next",
-      "i18next-xhr-backend"
+      "i18next-xhr-backend",
+      "jest"
     ]
   },
   "include": [

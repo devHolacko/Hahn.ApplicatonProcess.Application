@@ -7,9 +7,10 @@ export class App {
   public currentUrl = window.location.href;
   router: Router;
   localization: I18N;
+  static inject = [I18N];
   constructor(i18n: I18N) {
     this.localization = i18n;
-    this.localization.setLocale("en-EN").then();
+    i18n.setLocale("en").then();
   }
 
   configureRouter(config: RouterConfiguration, router: Router): void {

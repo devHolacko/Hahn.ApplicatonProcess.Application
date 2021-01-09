@@ -238,7 +238,11 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
     ...when(!tests, new DuplicatePackageCheckerPlugin()),
     new AureliaPlugin(),
     new ModuleDependenciesPlugin({
-      'aurelia-testing': ['./compile-spy', './view-spy']
+      'aurelia-testing': ['./compile-spy', './view-spy'],
+      "aurelia-i18n": [
+        { name: "locales/en/translation.json" },
+        { name: "locales/de/translation.json" }
+      ]
     }),
     new HtmlWebpackPlugin({
       template: 'index.ejs',
@@ -247,9 +251,9 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
         baseUrl
       }
     }),
-    new CopyWebpackPlugin([
-      { from: 'src/resources/locales/', to: 'locales/' }
-    ]),
+    new CopyWebpackPlugin({
+      patterns:[{ from: 'src/locales/', to: 'locales/' }]
+    }),
     // ref: https://webpack.js.org/plugins/mini-css-extract-plugin/
     ...when(extractCss, new MiniCssExtractPlugin({ // updated to match the naming conventions for the js files
       filename: production ? '[name].[contenthash].bundle.css' : '[name].[hash].bundle.css',

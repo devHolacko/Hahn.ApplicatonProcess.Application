@@ -8,9 +8,10 @@ export class App {
   router: Router;
   localization: I18N;
   static inject = [I18N];
+  public currentLocale = "en";
   constructor(i18n: I18N) {
     this.localization = i18n;
-    i18n.setLocale("en").then();
+    i18n.setLocale(this.currentLocale).then();
   }
 
   configureRouter(config: RouterConfiguration, router: Router): void {

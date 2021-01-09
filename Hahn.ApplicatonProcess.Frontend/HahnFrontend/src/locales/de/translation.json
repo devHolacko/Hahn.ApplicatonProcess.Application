@@ -1,6 +1,8 @@
 {
-  "user": {
-    "name": "Name"
-  },
-  "users": "Users DE"
+  "General": {
+    "ProductName": "Applicants system",
+    "Language": "Language",
+    "En": "En",
+    "De": "De"
+  }
 }

@@ -2,27 +2,30 @@
   <div class="jumbotron text-center">
     <h3>${'CreateApplicant.Title' | t}</h3>
   </div>
-  <form>
+  <form submit.delegate="submit()">
     <div class="form-row">
       <div class="form-group col-md-6">
         <label>${'CreateApplicant.Name' | t}</label>
-        <input type="text" class="form-control" placeholder="${'CreateApplicant.NamePlaceholder' | t}">
+        <input type="text" value.bind="createApplicantRequest.name & validate" required class="form-control"
+          placeholder="${'CreateApplicant.NamePlaceholder' | t}">
       </div>
       <div class="form-group col-md-6">
         <label>${'CreateApplicant.FamilyName' | t}</label>
-        <input type="text" class="form-control" placeholder="${'CreateApplicant.FamilyNamePlaceholder' | t}">
+        <input type="text" value.bind="createApplicantRequest.familyName & validate" required class="form-control"
+          placeholder="${'CreateApplicant.FamilyNamePlaceholder' | t}">
       </div>
     </div>
     <div class="form-group">
       <label>${'CreateApplicant.Address' | t}</label>
-      <input type="text" class="form-control" placeholder="${'CreateApplicant.Address' | t}">
+      <input type="text" value.bind="createApplicantRequest.address & validate" required class="form-control"
+        placeholder="${'CreateApplicant.Address' | t}">
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label>${'CreateApplicant.Country' | t}</label>
-        <select id="inputState" class="form-control">
+        <select value.bind="createApplicantRequest.country & validate" required class="form-control">
           <option selected>${'CreateApplicant.CountryPlaceholder' | t}</option>
-          <option repeat.for="country of countriesLookup" model.bind="country.key">
+          <option repeat.for="country of countriesLookup" model.bind="country.value">
             ${country.value}
           </option>
         </select>
@@ -30,17 +33,19 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputEmail4">${'CreateApplicant.Email' | t}</label>
-        <input type="text" class="form-control" placeholder="${'CreateApplicant.EmailPlaceholder' | t}">
+        <label>${'CreateApplicant.Email' | t}</label>
+        <input type="text" class="form-control" value.bind="createApplicantRequest.email & validate" required
+          placeholder="${'CreateApplicant.EmailPlaceholder' | t}">
       </div>
       <div class="form-group col-md-6">
-        <label for="inputPassword4">${'CreateApplicant.Age' | t}</label>
-        <input type="number" class="form-control" placeholder="${'CreateApplicant.AgePlaceholder' | t}">
+        <label>${'CreateApplicant.Age' | t}</label>
+        <input type="number" value.bind="createApplicantRequest.age & validate " required class="form-control"
+          placeholder="${'CreateApplicant.AgePlaceholder' | t}">
       </div>
     </div>
     <div class="form-group">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox">
+        <input class="form-check-input" type="checkbox" value.bind="createApplicantRequest.hired">
         <label class="form-check-label" for="gridCheck">
           ${'CreateApplicant.Hired' | t}
         </label>

@@ -8,6 +8,7 @@ export function configure(aurelia: Aurelia): void {
   aurelia.use
     .standardConfiguration()
     .feature(PLATFORM.moduleName('resources/index'))
+    .plugin(PLATFORM.moduleName('aurelia-validation'))
     .plugin(PLATFORM.moduleName('aurelia-i18n'), (instance) => {
       const aliases = ['t', 'i18n'];
       // add aliases for 't' attribute

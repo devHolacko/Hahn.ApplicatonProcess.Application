@@ -19,12 +19,21 @@ export class CountryService {
     this.countriesUrl = `${environment.apiUrl}/${environment.countries}`;
   }
 
-  public getCountries(): Promise<DataGenericResponse<KeyValuePair<string, string>>> {
+  public getCountries() {
+    return this.httpClient.get(this.countriesUrl).then(result => {
+      const response: DataGenericResponse<KeyValuePair<string, string>> = JSON.parse(result.response);
+      console.log('success');
+      return response;
+    }).catch(err => {
+      console.log('failure');
+      return null;
+    });
+  }
+
+  public getAllCountries(): any {
     return this.httpClient.get(this.countriesUrl).then(result => {
       const response: DataGenericResponse<KeyValuePair<string, string>> = JSON.parse(result.response);
       return response;
-    }).catch(err => {
-      return null;
     });
   }
 }

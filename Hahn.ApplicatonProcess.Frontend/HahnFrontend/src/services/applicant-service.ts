@@ -21,7 +21,7 @@ export class ApplicantService {
 
   public getApplicant(id: number): Promise<DataGenericResponse<GetApplicantByIdResponse>> {
     const requestUrl = `${this.applicantsUrl}/${id}`;
-    this.httpClient.get(requestUrl).then(result => {
+    return this.httpClient.get(requestUrl).then(result => {
       const response: DataGenericResponse<GetApplicantByIdResponse> = JSON.parse(result.response);
       return response;
     }).catch(err => {

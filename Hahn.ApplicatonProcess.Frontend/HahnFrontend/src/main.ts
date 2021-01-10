@@ -9,6 +9,13 @@ export function configure(aurelia: Aurelia): void {
     .standardConfiguration()
     .feature(PLATFORM.moduleName('resources/index'))
     .plugin(PLATFORM.moduleName('aurelia-validation'))
+    .plugin(PLATFORM.moduleName('aurelia-dialog'), config => {
+      config.useDefaults();
+      config.settings.overlayDismiss = false;;
+      config.settings.centerHorizontalOnly = false;
+      config.settings.startingZIndex = 5;
+      config.settings.keyboard = true;
+    })
     .plugin(PLATFORM.moduleName('aurelia-i18n'), (instance) => {
       const aliases = ['t', 'i18n'];
       // add aliases for 't' attribute

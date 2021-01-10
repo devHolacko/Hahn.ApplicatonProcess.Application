@@ -51,7 +51,7 @@ export class EditApplicant {
           .required().withMessage(this.i18n.tr("Messages.FamilyNameRequired"))
           .ensure("emailAddress")
           .required().withMessage(this.i18n.tr("Messages.EmailRequired")).email().withMessage(this.i18n.tr("Messages.EmailFormatInvalid"))
-          .ensure("address").required().withMessage(this.i18n.tr("Messages.AddressRequired")).minLength(10).withMessage(this.i18n.tr("Messages.AddressLength", { length: 5 }))
+          .ensure("address").required().withMessage(this.i18n.tr("Messages.AddressRequired")).minLength(10).withMessage(this.i18n.tr("Messages.AddressLength", { length: 10 }))
           .ensure("countryOfOrigin").required().withMessage(this.i18n.tr("Messages.CountryRequired"))
           .ensure("age").required().withMessage(this.i18n.tr("Messages.AgeRequired"))
           .min(20).withMessage(this.i18n.tr("Messages.AgeMin", { minAge: 20 }))

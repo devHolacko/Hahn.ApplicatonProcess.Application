@@ -4,7 +4,9 @@
     "Language": "Language",
     "En": "En",
     "De": "De",
-    "New": "New"
+    "New": "New",
+    "Yes": "Yes",
+    "No": "No"
   },
   "CreateApplicant": {
     "Title": "Create a new applicant",
@@ -61,6 +63,8 @@
     "CountryRequired": "Country is required",
     "AgeRequired": "Age is required",
     "AgeMin": "Age must be at least {{minAge}}",
-    "AgeMax": "Age must be maximum {{maxAge}}"
+    "AgeMax": "Age must be maximum {{maxAge}}",
+    "ResetFormConfirmation": "You are about to reset this form. Are you sure ?",
+    "Reset": "Reset"
   }
 }

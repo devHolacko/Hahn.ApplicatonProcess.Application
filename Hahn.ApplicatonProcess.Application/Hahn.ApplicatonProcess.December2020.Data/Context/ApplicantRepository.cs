@@ -41,8 +41,15 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Context
 
         public bool Edit(T entity)
         {
-            var editedEntity = _context.Set<T>().FirstOrDefault(e => e.Id == entity.Id);
-            editedEntity = entity;
+            var local = _context.Set<T>()
+                .Local
+                .FirstOrDefault(entry => entry.Id.Equals(entity.Id));
+            if (local != null)
+            {
+                // detach
+                _context.Entry(local).State = EntityState.Detached;
+            }
+            _context.Entry(entity).State = EntityState.Modified;
             return SaveChanges();
         }
 

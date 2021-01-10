@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
 {
@@ -20,7 +21,8 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
         {
             using (HttpClient client = new HttpClient())
             {
-                string fullRequestUrl = $"{_apiUrl}/name/{country}";
+                var countryEncoded = HttpUtility.UrlEncode(country);
+                string fullRequestUrl = $"{_apiUrl}/name/{countryEncoded}";
                 HttpResponseMessage response = await client.GetAsync(fullRequestUrl);
                 return response.IsSuccessStatusCode;
             }

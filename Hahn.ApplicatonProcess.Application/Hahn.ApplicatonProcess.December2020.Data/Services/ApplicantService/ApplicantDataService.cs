@@ -54,9 +54,9 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService
             return _applicantRepository.Filter(predicate);
         }
 
-        public List<Applicant> GetApplicantsWithPaging()
+        public List<Applicant> GetApplicantsList()
         {
-            return _applicantRepository.Filter(c => c.Active).ToList();
+            return _applicantRepository.GetAll().ToList();
         }
     }
 }

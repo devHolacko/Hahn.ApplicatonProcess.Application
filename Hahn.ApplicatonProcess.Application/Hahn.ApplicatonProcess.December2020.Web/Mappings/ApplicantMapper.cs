@@ -12,7 +12,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Mappings
             CreateMap<CreateApplicantViewModel, Applicant>();
             CreateMap<Applicant, ApplicantViewModel>();
             CreateMap<UpdateApplicantViewModel, Applicant>();
-            CreateMap<List<Applicant>, List<ApplicantListItem>>();
+            CreateMap<Applicant, ApplicantListItem>();
+            CreateMap<ApplicantListItem, Applicant>();
         }
     }
 }

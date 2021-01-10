@@ -14,6 +14,7 @@ namespace Hahn.ApplicatonProcess.December2020.Domain.Interfaces
         bool Edit(TEntity entity);
         TEntity GetById(int id);
         IEnumerable<TEntity> Filter(Func<TEntity, bool> predicate);
+        public IEnumerable<TEntity> GetAll();
         bool SaveChanges();
     }
 }

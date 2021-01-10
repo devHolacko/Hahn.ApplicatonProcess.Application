@@ -64,6 +64,11 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Context
             return _context.Set<T>().Where(predicate);
         }
 
+        public IEnumerable<T> GetAll()
+        {
+            return _context.Set<T>().AsQueryable();
+        }
+
         public bool SaveChanges() => _context.SaveChanges() > 0;
     }
 }

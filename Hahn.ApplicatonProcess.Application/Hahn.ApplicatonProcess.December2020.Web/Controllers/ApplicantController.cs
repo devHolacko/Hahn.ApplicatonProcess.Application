@@ -173,7 +173,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [Route("list")]
         public IActionResult GetAll()
         {
-            List<Applicant> applicants = _applicantDataService.GetApplicantsWithPaging(search);
+            List<Applicant> applicants = _applicantDataService.GetApplicantsList();
             if (applicants == null)
             {
                 GenericResponse failureResponse = new GenericResponse { Success = false };

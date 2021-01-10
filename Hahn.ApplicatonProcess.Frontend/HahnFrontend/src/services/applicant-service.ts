@@ -31,7 +31,7 @@ export class ApplicantService {
 
   public createApplicant(request: CreateApplicantRequest):
     Promise<DataGenericResponse<number>> | Promise<DataGenericResponse<KeyValuePair<string, string>[]>> {
-    this.httpClient.post(this.applicantsUrl, request).then(result => {
+    return this.httpClient.post(this.applicantsUrl, request).then(result => {
       const response: DataGenericResponse<number> = JSON.parse(result.response);
       return response;
     }).catch(err => {

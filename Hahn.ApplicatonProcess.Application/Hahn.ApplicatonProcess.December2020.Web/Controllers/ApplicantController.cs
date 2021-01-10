@@ -119,7 +119,17 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
                 }
                 return new BadRequestObjectResult(failureResponse);
             }
+
+            Applicant originalApplicant = _applicantDataService.Get(request.Id);
+            if (originalApplicant == null)
+            {
+                GenericResponse notFoundResponse = new GenericResponse() { Success = false };
+                return new NotFoundObjectResult(notFoundResponse);
+            }
+
             Applicant mappedApplicant = _mapper.Map<Applicant>(request);
+            mappedApplicant.CreatedOn = originalApplicant.CreatedOn;
+            mappedApplicant.ModifiedOn = originalApplicant.ModifiedOn;
             bool result = _applicantDataService.Update(mappedApplicant);
             GenericResponse response = new GenericResponse { Success = result };
 

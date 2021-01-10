@@ -5,8 +5,9 @@ import { ValidationControllerFactory, ValidationRules, ValidationController } fr
 import { KeyValuePair } from "models/general/key-value-pair";
 import { CreateApplicantRequest } from "models/applicants/request/create-applicant";
 import { I18N } from "aurelia-i18n";
+import { Router } from 'aurelia-router';
 
-@inject(ApplicantService, CountryService, ValidationControllerFactory, I18N)
+@inject(ApplicantService, CountryService, ValidationControllerFactory, I18N, Router)
 export class CreateApplicant {
   private readonly applicantService: ApplicantService;
   private readonly countryService: CountryService;
@@ -14,11 +15,15 @@ export class CreateApplicant {
   public countriesLookup: KeyValuePair<string, string>[] = [];
   public validationControllerFactory: ValidationController;
   private readonly i18n: I18N;
+  public loading = false;
+  private router: Router;
 
-  constructor(_applicantService: ApplicantService, _countryService: CountryService, controller: ValidationControllerFactory, _i18n: I18N) {
+  constructor(_applicantService: ApplicantService, _countryService: CountryService, controller: ValidationControllerFactory, _i18n: I18N,
+    _router: Router) {
     this.applicantService = _applicantService;
     this.countryService = _countryService;
     this.i18n = _i18n;
+    this.router = _router;
     this.createApplicantRequest.hired = false;
     this.validationControllerFactory = controller.createForCurrentScope();
     ValidationRules
@@ -43,8 +48,10 @@ export class CreateApplicant {
   }
 
   public submit(): void {
+    this.loading = true;
     this.applicantService.createApplicant(this.createApplicantRequest).then(result => {
-      console.log({ result });
+      this.loading = false;
+      this.router.navigate("applicants/list");
     });
   }
 

@@ -87,8 +87,13 @@
         </label>
       </div>
     </div>
-    <button type="button" click.delegate="submit()" disabled.bind="validationControllerFactory.errors.length > 0"
+    <button type="button" click.delegate="submit()"
+      disabled.bind="validationControllerFactory.errors.length > 0 || loading"
       class="btn btn-primary">${'CreateApplicant.Save' | t}</button>
-    <button type="button" click.delegate="reset()" class="btn btn-danger">${'CreateApplicant.Reset' | t}</button>
+    <button type="button" click.delegate="reset()" disabled.bind="loading"
+      class="btn btn-danger">${'CreateApplicant.Reset' | t}</button>
+    <span if.bind="loading">
+      <i class="fa fa-spinner fa-spin fa-lg"></i>
+    </span>
   </form>
 </template>

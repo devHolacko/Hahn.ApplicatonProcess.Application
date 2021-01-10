@@ -54,16 +54,9 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService
             return _applicantRepository.Filter(predicate);
         }
 
-        public List<Applicant> GetApplicantsWithPaging(string searchKeyword)
+        public List<Applicant> GetApplicantsWithPaging()
         {
-            if (string.IsNullOrWhiteSpace(searchKeyword))
-                return _applicantRepository.Filter(c => c.Active).ToList();
-
-            return _applicantRepository.Filter(c =>
-            c.Name.Contains(searchKeyword) || c.FamilyName.Contains(searchKeyword) || c.Address.Contains(searchKeyword)
-            || Convert.ToString(c.Age).Contains(searchKeyword) || c.CountryOfOrigin.Contains(searchKeyword)
-            || c.EmailAddress.Contains(searchKeyword) || Convert.ToString(c.Hired).Contains(searchKeyword))
-                .ToList();
+            return _applicantRepository.Filter(c => c.Active).ToList();
         }
     }
 }

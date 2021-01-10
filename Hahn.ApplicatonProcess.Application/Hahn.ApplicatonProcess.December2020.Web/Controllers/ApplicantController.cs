@@ -171,7 +171,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DataGenericResponse<List<ApplicantListItem>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(GenericResponse))]
         [Route("list")]
-        public IActionResult GetAll(string search = "")
+        public IActionResult GetAll()
         {
             List<Applicant> applicants = _applicantDataService.GetApplicantsWithPaging(search);
             if (applicants == null)

@@ -62,9 +62,9 @@ export class ApplicantService {
     });
   }
 
-  public getApplicantsList(pageSize: number, pageNumber: number, searchKeyword: string)
+  public getApplicantsList()
     : Promise<DataGenericResponse<ApplicantListItem>> | GenericResponse {
-    const requestUrl = `${this.applicantsUrl}/size/${pageSize}/page/${pageNumber}`;
+    const requestUrl = `${this.applicantsUrl}/list`;
     this.httpClient.get(requestUrl).then(result => {
       const response: DataGenericResponse<ApplicantListItem> = JSON.parse(result.response);
       return response;

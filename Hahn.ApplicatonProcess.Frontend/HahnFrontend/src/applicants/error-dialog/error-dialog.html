@@ -1,0 +1,18 @@
+<template>
+  <require from="./error-dialog.css"></require>
+  <ux-dialog>
+    <ux-dialog-header>
+      ${'Messages.ValidationErrors' | t}
+    </ux-dialog-header>
+    <ux-dialog-body>
+      <div if.bind="messages">
+        <li class="alert alert-danger" role="alert" repeat.for="message of messages">
+          ${message}
+        </li>
+      </div>
+    </ux-dialog-body>
+    <ux-dialog-footer>
+      <button click.delegate="confirm()">${'General.Ok' | t}</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>

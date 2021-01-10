@@ -6,8 +6,10 @@ import { KeyValuePair } from "models/general/key-value-pair";
 import { EditApplicantRequest } from "models/applicants/request/edit-applicant";
 import { I18N } from "aurelia-i18n";
 import { Router } from 'aurelia-router';
+import { DialogService } from 'aurelia-dialog';
+import { ErrorDialog } from 'applicants/error-dialog/error-dialog';
 
-@inject(ApplicantService, CountryService, ValidationControllerFactory, I18N, Router)
+@inject(ApplicantService, CountryService, ValidationControllerFactory, I18N, Router, DialogService)
 export class EditApplicant {
   private readonly applicantService: ApplicantService;
   private readonly countryService: CountryService;
@@ -19,14 +21,16 @@ export class EditApplicant {
   applicantId: number;
   public loading = false;
   public apiErrorMessages: string[] = [];
+  private readonly dialogService: DialogService;
 
   constructor(_applicantService: ApplicantService, _countryService: CountryService, controller: ValidationControllerFactory, _i18n: I18N,
-    _router: Router) {
+    _router: Router, _dialogService: DialogService) {
     this.applicantService = _applicantService;
     this.countryService = _countryService;
     this.i18n = _i18n;
     this.router = _router;
     this.validationControllerFactory = controller.createForCurrentScope();
+    this.dialogService = _dialogService;
   }
 
   activate(params: any): void {
@@ -75,6 +79,8 @@ export class EditApplicant {
         mappedResult.map((item, index) => {
           this.apiErrorMessages.push(item.value);
         });
+
+        this.dialogService.open({ viewModel: ErrorDialog, model: this.apiErrorMessages });
       }
     });
   }
@@ -99,7 +105,18 @@ export class EditApplicant {
   }
 
   public get isFormValid(): boolean {
-    return (this.isFormTouched
-      && (this.validationControllerFactory.errors === null || this.validationControllerFactory.errors.length === 0));
+    if (
+      (this.editApplicantRequest.address !== "" && this.editApplicantRequest.address !== undefined) &&
+      this.editApplicantRequest.age !== undefined &&
+      (this.editApplicantRequest.countryOfOrigin !== "" && this.editApplicantRequest.countryOfOrigin !== undefined) &&
+      (this.editApplicantRequest.emailAddress !== "" && this.editApplicantRequest.emailAddress !== undefined) &&
+      (this.editApplicantRequest.familyName !== "" && this.editApplicantRequest.familyName !== undefined) &&
+      (this.editApplicantRequest.name !== "" && this.editApplicantRequest.name !== undefined)
+      && this.validationControllerFactory.errors.length === 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

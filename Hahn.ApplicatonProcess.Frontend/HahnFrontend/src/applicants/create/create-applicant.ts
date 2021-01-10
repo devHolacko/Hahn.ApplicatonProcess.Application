@@ -8,7 +8,7 @@ import { I18N } from "aurelia-i18n";
 import { Router } from 'aurelia-router';
 import { DialogService } from 'aurelia-dialog';
 import { ResetDialog } from './reset-dialog/reset-dialog'
-import { DataGenericResponse } from 'models/general/data-generic-response';
+import { ErrorDialog } from '../error-dialog/error-dialog';
 
 @inject(ApplicantService, CountryService, ValidationControllerFactory, I18N, Router, DialogService)
 export class CreateApplicant {
@@ -44,6 +44,7 @@ export class CreateApplicant {
       .min(20).withMessage(this.i18n.tr("Messages.AgeMin", { minAge: 20 }))
       .max(60).withMessage(this.i18n.tr("Messages.AgeMax", { AgeMax: 60 }))
       .on(this.createApplicantRequest);
+    // this.validationControllerFactory.validate({ object: this.createApplicantRequest }).then(result => { });
   }
 
   activate(): void {
@@ -66,6 +67,8 @@ export class CreateApplicant {
         mappedResult.map((item, index) => {
           this.apiErrorMessages.push(item.value);
         });
+
+        this.dialogService.open({ viewModel: ErrorDialog, model: this.apiErrorMessages });
       }
     });
   }
@@ -100,7 +103,18 @@ export class CreateApplicant {
   }
 
   public get isFormValid(): boolean {
-    return (this.isFormTouched
-      && (this.validationControllerFactory.errors === null || this.validationControllerFactory.errors.length === 0));
+    if (
+      (this.createApplicantRequest.address !== "" && this.createApplicantRequest.address !== undefined) &&
+      this.createApplicantRequest.age !== undefined &&
+      (this.createApplicantRequest.countryOfOrigin !== "" && this.createApplicantRequest.countryOfOrigin !== undefined) &&
+      (this.createApplicantRequest.emailAddress !== "" && this.createApplicantRequest.emailAddress !== undefined) &&
+      (this.createApplicantRequest.familyName !== "" && this.createApplicantRequest.familyName !== undefined) &&
+      (this.createApplicantRequest.name !== "" && this.createApplicantRequest.name !== undefined)
+      && this.validationControllerFactory.errors.length === 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

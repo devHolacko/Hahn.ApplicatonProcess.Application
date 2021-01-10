@@ -91,18 +91,12 @@
         </label>
       </div>
     </div>
-    <button type="button" click.delegate="submit()" disabled.bind="!isFormValid || loading"
+    <button type="button" click.delegate="submit()" disabled.bind="!isFormValid"
       class="btn btn-primary">${'CreateApplicant.Save' | t}</button>
     <button type="button" click.delegate="reset()" disabled.bind="!isFormTouched || loading"
       class="btn btn-danger">${'CreateApplicant.Reset' | t}</button>
     <span if.bind="loading">
       <i class="fa fa-spinner fa-spin fa-lg"></i>
     </span>
-    <br />
-    <div if.bind="apiErrorMessages">
-      <li class="alert alert-danger" role="alert" repeat.for="error of apiErrorMessages">
-        ${error}
-      </li>
-    </div>
   </form>
 </template>

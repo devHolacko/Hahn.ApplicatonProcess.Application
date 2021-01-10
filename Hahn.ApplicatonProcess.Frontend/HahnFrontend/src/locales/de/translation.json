@@ -7,6 +7,7 @@
     "New": "New",
     "Yes": "Yes",
     "No": "No",
+    "Ok": "Ok",
     "GoToApplicants": "View Applicants",
     "CreateApplicant": "Create new Applicant"
   },
@@ -68,6 +69,7 @@
     "AgeMax": "Age must be maximum {{maxAge}}",
     "ResetFormConfirmation": "You are about to reset this form. Are you sure ?",
     "Reset": "Reset",
-    "RequestSuccess": "Request completed successfully"
+    "RequestSuccess": "Request completed successfully",
+    "ValidationErrors": "Validation Errors"
   }
 }

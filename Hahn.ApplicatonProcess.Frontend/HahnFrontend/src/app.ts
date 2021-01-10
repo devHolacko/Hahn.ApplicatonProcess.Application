@@ -3,7 +3,7 @@ import { PLATFORM } from "aurelia-pal";
 import { I18N } from "aurelia-i18n";
 
 export class App {
-  public currentUrl = window.location.href;
+  public currentUrl = window.location.origin;
   router: Router;
   localization: I18N;
   static inject = [I18N];

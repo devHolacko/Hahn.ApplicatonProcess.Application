@@ -65,8 +65,8 @@ export class ApplicantService {
   public getApplicantsList()
     : Promise<DataGenericResponse<ApplicantListItem>> | GenericResponse {
     const requestUrl = `${this.applicantsUrl}/list`;
-    this.httpClient.get(requestUrl).then(result => {
-      const response: DataGenericResponse<ApplicantListItem> = JSON.parse(result.response);
+    return this.httpClient.get(requestUrl).then(result => {
+      const response: DataGenericResponse<ApplicantListItem[]> = JSON.parse(result.response);
       return response;
     }).catch(err => {
       const response: GenericResponse = JSON.parse(err.response);

@@ -3,7 +3,8 @@
     "ProductName": "Applicants system",
     "Language": "Language",
     "En": "En",
-    "De": "De"
+    "De": "De",
+    "New": "New"
   },
   "CreateApplicant": {
     "Title": "Create a new applicant",

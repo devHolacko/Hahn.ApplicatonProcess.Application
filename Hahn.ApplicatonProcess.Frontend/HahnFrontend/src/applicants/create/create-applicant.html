@@ -81,7 +81,7 @@
     </div>
     <div class="form-group">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value.bind="createApplicantRequest.hired">
+        <input class="form-check-input" type="checkbox" checked.bind="createApplicantRequest.hired">
         <label class="form-check-label" for="gridCheck">
           ${'CreateApplicant.Hired' | t}
         </label>
@@ -90,10 +90,5 @@
     <button type="button" click.delegate="submit()" disabled.bind="validationControllerFactory.errors.length > 0"
       class="btn btn-primary">${'CreateApplicant.Save' | t}</button>
     <button type="button" click.delegate="reset()" class="btn btn-danger">${'CreateApplicant.Reset' | t}</button>
-    <!-- <ul if.bind="controller.errors">
-      <li repeat.for="error of controller.errors">
-        ${error.message}
-      </li>
-    </ul> -->
   </form>
 </template>

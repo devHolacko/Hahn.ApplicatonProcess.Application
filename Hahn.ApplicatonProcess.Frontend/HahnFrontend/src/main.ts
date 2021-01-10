@@ -30,7 +30,7 @@ export function configure(aurelia: Aurelia): void {
         fallbackLng: 'en',
         ns: ['translation'],
         defaultNs: 'translation',
-        debug: true
+        debug: false
       });
     });
 

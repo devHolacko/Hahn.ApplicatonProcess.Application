@@ -1,4 +1,4 @@
-export class EditApplicant {
+export class EditApplicantRequest {
   id: number;
   name: string;
   familyName: string;

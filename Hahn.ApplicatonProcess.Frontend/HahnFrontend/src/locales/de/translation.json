@@ -47,5 +47,19 @@
     "FamilyName": "Family Name",
     "Country": "Country",
     "Hired": "Hired"
+  },
+  "Messages": {
+    "NameRequired": "Name is required",
+    "NameLength": "Name length must be {{length}} characters at least",
+    "FamilyNameRequired": "Family Name is required",
+    "FamilyNameLength": "Family Name length must be {{length}} characters at least",
+    "EmailRequired": "Email is required",
+    "EmailFormatInvalid": "Email format is invalid",
+    "AddressRequired": "Address is required",
+    "AddressLength": "Address length must be {{length}} characters at least",
+    "CountryRequired": "Country is required",
+    "AgeRequired": "Age is required",
+    "AgeMin": "Age must be at least {{minAge}}",
+    "AgeMax": "Age must be maximum {{maxAge}}"
   }
 }

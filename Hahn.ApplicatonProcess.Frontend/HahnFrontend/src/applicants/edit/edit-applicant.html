@@ -1,53 +1,99 @@
 <template>
-  <template>
-    <div class="jumbotron text-center">
-      <h3>${'EditApplicant.Title' | t}</h3>
+  <div class="jumbotron text-center">
+    <h3>${'EditApplicant.Title' | t}</h3>
+  </div>
+  <form submit.delegate="submit()">
+    <div class="form-row">
+      <div class="form-group col-md-6" validation-errors.bind="nameErrors">
+        <label>${'EditApplicant.Name' | t}</label>
+        <input type="text" value.bind="editApplicantRequest.name & validate"
+          placeholder="${'EditApplicant.NamePlaceholder' | t}"
+          class="${nameErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+        <ul if.bind="nameErrors">
+          <li repeat.for="error of nameErrors">
+            ${error.error.message}
+          </li>
+        </ul>
+      </div>
+      <div class="form-group col-md-6" validation-errors.bind="familyNameErrors">
+        <label>${'EditApplicant.FamilyName' | t}</label>
+        <input type="text" value.bind="editApplicantRequest.familyName &  validate"
+          placeholder="${'EditApplicant.FamilyNamePlaceholder' | t}"
+          class="${familyNameErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+        <ul if.bind="familyNameErrors">
+          <li repeat.for="error of familyNameErrors">
+            ${error.error.message}
+          </li>
+        </ul>
+      </div>
     </div>
-    <form>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputEmail4">${'EditApplicant.Name' | t}</label>
-          <input type="text" class="form-control" placeholder="${'EditApplicant.NamePlaceholder' | t}">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputPassword4">${'EditApplicant.FamilyName' | t}</label>
-          <input type="text" class="form-control" placeholder="${'EditApplicant.FamilyNamePlaceholder' | t}">
-        </div>
+    <div class="form-group" validation-errors.bind="addressErrors">
+      <label>${'EditApplicant.Address' | t}</label>
+      <input type="text" value.bind="editApplicantRequest.address &  validate"
+        placeholder="${'EditApplicant.Address' | t}"
+        class="${addressErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+      <ul if.bind="addressErrors">
+        <li repeat.for="error of addressErrors">
+          ${error.error.message}
+        </li>
+      </ul>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4" validation-errors.bind="countryErrors">
+        <label>${'EditApplicant.Country' | t}</label>
+        <select value.bind="editApplicantRequest.countryOfOrigin &  validate"
+          class="${countryErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+          <option selected>${'EditApplicant.CountryPlaceholder' | t}</option>
+          <option repeat.for="country of countriesLookup" model.bind="country.value">
+            ${country.value}
+          </option>
+        </select>
+        <ul if.bind="countryErrors">
+          <li repeat.for="error of countryErrors">
+            ${error.error.message}
+          </li>
+        </ul>
       </div>
-      <div class="form-group">
-        <label for="inputAddress">${'EditApplicant.Address' | t}</label>
-        <input type="text" class="form-control" placeholder="${'EditApplicant.Address' | t}">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6" validation-errors.bind="emailErrors">
+        <label>${'EditApplicant.Email' | t}</label>
+        <input type="text" value.bind="editApplicantRequest.emailAddress &  validate"
+          placeholder="${'EditApplicant.EmailPlaceholder' | t}"
+          class="${emailErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+        <ul if.bind="emailErrors">
+          <li repeat.for="error of emailErrors">
+            ${error.error.message}
+          </li>
+        </ul>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="inputState">${'EditApplicant.Country' | t}</label>
-          <select id="inputState" class="form-control">
-            <option selected>${'CreateApplicant.CountryPlaceholder' | t}</option>
-            <option>...</option>
-          </select>
-        </div>
+      <div class="form-group col-md-6" validation-errors.bind="ageErrors">
+        <label>${'EditApplicant.Age' | t}</label>
+        <input type="number" value.bind="editApplicantRequest.age &  validate "
+          placeholder="${'EditApplicant.AgePlaceholder' | t}"
+          class="${ageErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+        <ul if.bind="ageErrors">
+          <li repeat.for="error of ageErrors">
+            ${error.error.message}
+          </li>
+        </ul>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputEmail4">${'EditApplicant.Email' | t}</label>
-          <input type="text" class="form-control" placeholder="${'EditApplicant.EmailPlaceholder' | t}">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="inputPassword4">${'EditApplicant.Age' | t}</label>
-          <input type="number" class="form-control" placeholder="${'EditApplicant.AgePlaceholder' | t}">
-        </div>
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value.bind="editApplicantRequest.hired">
+        <label class="form-check-label" for="gridCheck">
+          ${'EditApplicant.Hired' | t}
+        </label>
       </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox">
-          <label class="form-check-label" for="gridCheck">
-            ${'EditApplicant.Hired' | t}
-          </label>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">${'EditApplicant.Save' | t}</button>
-      <button type="button" class="btn btn-danger">${'EditApplicant.Cancel' | t}</button>
-    </form>
-  </template>
-
+    </div>
+    <button type="button" click.delegate="submit()" disabled.bind="validationControllerFactory.errors.length > 0"
+      class="btn btn-primary">${'EditApplicant.Save' | t}</button>
+    <button type="button" click.delegate="cancel()" class="btn btn-danger">${'EditApplicant.Cancel' | t}</button>
+    <!-- <ul if.bind="controller.errors">
+      <li repeat.for="error of controller.errors">
+        ${error.message}
+      </li>
+    </ul> -->
+  </form>
 </template>

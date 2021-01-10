@@ -1,7 +1,7 @@
 import { Aurelia } from 'aurelia-framework';
 import * as environment from '../config/environment.json';
 import { PLATFORM } from 'aurelia-pal';
-import { I18N, Backend, TCustomAttribute } from 'aurelia-i18n';
+import { TCustomAttribute } from 'aurelia-i18n';
 import XHR from 'i18next-xhr-backend';
 
 export function configure(aurelia: Aurelia): void {

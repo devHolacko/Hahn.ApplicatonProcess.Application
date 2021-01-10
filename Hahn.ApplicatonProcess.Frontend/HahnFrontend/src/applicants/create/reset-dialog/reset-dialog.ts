@@ -1,5 +1,5 @@
 import { DialogController } from 'aurelia-dialog';
-import { autoinject, inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 
 @autoinject
 export class ResetDialog {

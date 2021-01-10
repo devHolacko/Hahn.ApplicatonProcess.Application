@@ -1,6 +1,5 @@
 import { inject } from "aurelia-framework";
 import { ApplicantListItem } from 'models/applicants/response/applicant-list-item';
-import { DataGenericResponse } from 'models/general/data-generic-response';
 import { ApplicantService } from "services/applicant-service";
 import { Router } from 'aurelia-router';
 
@@ -17,7 +16,6 @@ export class ApplicantsList {
   activate(params, routeConfig, navigationInstruction) {
     this.applicantService.getApplicantsList().then(result => {
       this.applicantsList = result.data;
-      console.log({ result });
     });
   }
 

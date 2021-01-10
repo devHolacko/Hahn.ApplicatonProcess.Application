@@ -11,7 +11,6 @@ export class App {
   constructor(i18n: I18N) {
     this.localization = i18n;
     const currentLanguage = localStorage.getItem("lang");
-    console.log({ currentLanguage });
     if (currentLanguage == null) {
       this.currentLocale = "en";
       localStorage.setItem("lang", this.currentLocale);

@@ -1,4 +1,4 @@
-import { inject, NewInstance } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 import { ApplicantService } from "services/applicant-service";
 import { CountryService } from "../../services/country-service";
 import { ValidationControllerFactory, ValidationRules, ValidationController } from "aurelia-validation";

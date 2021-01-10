@@ -43,7 +43,7 @@
         <label>${'CreateApplicant.Country' | t}</label>
         <select value.bind="createApplicantRequest.countryOfOrigin &  validate"
           class="${countryErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
-          <option selected>${'CreateApplicant.CountryPlaceholder' | t}</option>
+          <option selected value="">${'CreateApplicant.CountryPlaceholder' | t}</option>
           <option repeat.for="country of countriesLookup" model.bind="country.value">
             ${country.value}
           </option>
@@ -88,9 +88,9 @@
       </div>
     </div>
     <button type="button" click.delegate="submit()"
-      disabled.bind="validationControllerFactory.errors.length > 0 || loading"
+      disabled.bind="(validationControllerFactory.errors.length > 0 || loading) || !isFormTouched"
       class="btn btn-primary">${'CreateApplicant.Save' | t}</button>
-    <button type="button" click.delegate="reset()" disabled.bind="loading"
+    <button type="button" click.delegate="reset()" disabled.bind="!isFormTouched || loading"
       class="btn btn-danger">${'CreateApplicant.Reset' | t}</button>
     <span if.bind="loading">
       <i class="fa fa-spinner fa-spin fa-lg"></i>

@@ -11,7 +11,7 @@ export function configure(aurelia: Aurelia): void {
     .plugin(PLATFORM.moduleName('aurelia-validation'))
     .plugin(PLATFORM.moduleName('aurelia-dialog'), config => {
       config.useDefaults();
-      config.settings.overlayDismiss = false;;
+      config.settings.overlayDismiss = false;
       config.settings.centerHorizontalOnly = false;
       config.settings.startingZIndex = 5;
       config.settings.keyboard = true;

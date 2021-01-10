@@ -55,12 +55,14 @@ export class CreateApplicant {
     this.loading = true;
     this.applicantService.createApplicant(this.createApplicantRequest).then(result => {
       this.loading = false;
-      this.router.navigate("applicants/list");
+      if (result && result.success) {
+        this.router.navigate("applicants/list");
+      }
     });
   }
 
   public reset(): void {
-    this.dialogService.open({ viewModel: ResetDialog, model: 'Good or Bad?', lock: false }).whenClosed(response => {
+    this.dialogService.open({ viewModel: ResetDialog, model: "" }).whenClosed(response => {
       if (response.output) {
         this.createApplicantRequest.address = "";
         this.createApplicantRequest.age = null;
@@ -71,5 +73,20 @@ export class CreateApplicant {
         this.createApplicantRequest.name = "";
       }
     });
+  }
+
+  public get isFormTouched(): boolean {
+    if (
+      (this.createApplicantRequest.address !== "" && this.createApplicantRequest.address !== undefined) ||
+      this.createApplicantRequest.age !== undefined ||
+      (this.createApplicantRequest.countryOfOrigin !== "" && this.createApplicantRequest.countryOfOrigin !== undefined) ||
+      (this.createApplicantRequest.emailAddress !== "" && this.createApplicantRequest.emailAddress !== undefined) ||
+      (this.createApplicantRequest.familyName !== "" && this.createApplicantRequest.familyName !== undefined) ||
+      (this.createApplicantRequest.name !== "" && this.createApplicantRequest.name !== undefined)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

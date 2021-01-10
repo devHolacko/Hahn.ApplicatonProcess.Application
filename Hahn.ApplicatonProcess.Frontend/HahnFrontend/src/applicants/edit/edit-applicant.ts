@@ -5,7 +5,7 @@ import { ValidationControllerFactory, ValidationRules, ValidationController } fr
 import { KeyValuePair } from "models/general/key-value-pair";
 import { EditApplicantRequest } from "models/applicants/request/edit-applicant";
 import { I18N } from "aurelia-i18n";
-import { Router, activationStrategy } from 'aurelia-router';
+import { Router } from 'aurelia-router';
 
 @inject(ApplicantService, CountryService, ValidationControllerFactory, I18N, Router)
 export class EditApplicant {
@@ -26,7 +26,6 @@ export class EditApplicant {
     this.i18n = _i18n;
     this.router = _router;
     this.validationControllerFactory = controller.createForCurrentScope();
-
   }
 
   activate(params: any): void {
@@ -66,11 +65,15 @@ export class EditApplicant {
     this.loading = true;
     this.applicantService.editApplicant(this.editApplicantRequest).then(result => {
       this.loading = false;
-      this.router.navigate("applicants/list");
+      if (result && result.success) {
+        this.router.navigate("applicants/list");
+      }
     });
   }
 
   public cancel(): void {
     this.router.navigate("applicants/list");
   }
+
+
 }

@@ -87,13 +87,18 @@
         </label>
       </div>
     </div>
-    <button type="button" click.delegate="submit()"
-      disabled.bind="validationControllerFactory.errors.length > 0 || loading"
+    <button type="button" click.delegate="submit()" disabled.bind="!isFormValid || loading"
       class="btn btn-primary">${'EditApplicant.Save' | t}</button>
     <button type="button" click.delegate="cancel()" disabled.bind="loading"
       class="btn btn-danger">${'EditApplicant.Cancel' | t}</button>
     <span if.bind="loading">
       <i class="fa fa-spinner fa-spin fa-lg"></i>
     </span>
+    <br />
+    <div if.bind="apiErrorMessages">
+      <li class="alert alert-danger" role="alert" repeat.for="error of apiErrorMessages">
+        ${error}
+      </li>
+    </div>
   </form>
 </template>

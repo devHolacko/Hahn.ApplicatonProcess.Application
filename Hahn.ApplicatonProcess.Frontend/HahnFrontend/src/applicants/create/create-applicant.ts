@@ -8,6 +8,7 @@ import { I18N } from "aurelia-i18n";
 import { Router } from 'aurelia-router';
 import { DialogService } from 'aurelia-dialog';
 import { ResetDialog } from './reset-dialog/reset-dialog'
+import { DataGenericResponse } from 'models/general/data-generic-response';
 
 @inject(ApplicantService, CountryService, ValidationControllerFactory, I18N, Router, DialogService)
 export class CreateApplicant {
@@ -20,6 +21,7 @@ export class CreateApplicant {
   public loading = false;
   private router: Router;
   private readonly dialogService: DialogService;
+  public apiErrorMessages: string[] = [];
 
   constructor(_applicantService: ApplicantService, _countryService: CountryService, controller: ValidationControllerFactory, _i18n: I18N,
     _router: Router, _dialogService: DialogService) {
@@ -53,10 +55,17 @@ export class CreateApplicant {
 
   public submit(): void {
     this.loading = true;
+    this.apiErrorMessages = [];
     this.applicantService.createApplicant(this.createApplicantRequest).then(result => {
       this.loading = false;
       if (result && result.success) {
         this.router.navigate("applicants/request-confirmation");
+      } else {
+        this.apiErrorMessages = [];
+        const mappedResult: KeyValuePair<string, string>[] = result.data;
+        mappedResult.map((item, index) => {
+          this.apiErrorMessages.push(item.value);
+        });
       }
     });
   }
@@ -88,5 +97,10 @@ export class CreateApplicant {
     } else {
       return false;
     }
+  }
+
+  public get isFormValid(): boolean {
+    return (this.isFormTouched
+      && (this.validationControllerFactory.errors === null || this.validationControllerFactory.errors.length === 0));
   }
 }

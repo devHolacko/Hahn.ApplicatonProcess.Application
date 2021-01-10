@@ -8,7 +8,8 @@
         <label>${'CreateApplicant.Name' | t}</label>
         <input type="text" value.bind="createApplicantRequest.name & validate"
           placeholder="${'CreateApplicant.NamePlaceholder' | t}"
-          class="${nameErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+          class="${nameErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}"
+          autocomplete="new-name">
         <ul if.bind="nameErrors">
           <li repeat.for="error of nameErrors">
             ${error.error.message}
@@ -19,7 +20,8 @@
         <label>${'CreateApplicant.FamilyName' | t}</label>
         <input type="text" value.bind="createApplicantRequest.familyName &  validate"
           placeholder="${'CreateApplicant.FamilyNamePlaceholder' | t}"
-          class="${familyNameErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+          class="${familyNameErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}"
+          autocomplete="new-familyName">
         <ul if.bind="familyNameErrors">
           <li repeat.for="error of familyNameErrors">
             ${error.error.message}
@@ -31,7 +33,8 @@
       <label>${'CreateApplicant.Address' | t}</label>
       <input type="text" value.bind="createApplicantRequest.address &  validate"
         placeholder="${'CreateApplicant.Address' | t}"
-        class="${addressErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+        class="${addressErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}"
+        autocomplete="new-address">
       <ul if.bind="addressErrors">
         <li repeat.for="error of addressErrors">
           ${error.error.message}
@@ -60,7 +63,8 @@
         <label>${'CreateApplicant.Email' | t}</label>
         <input type="text" value.bind="createApplicantRequest.emailAddress &  validate"
           placeholder="${'CreateApplicant.EmailPlaceholder' | t}"
-          class="${emailErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+          class="${emailErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}"
+          autocomplete="new-email">
         <ul if.bind="emailErrors">
           <li repeat.for="error of emailErrors">
             ${error.error.message}
@@ -71,7 +75,7 @@
         <label>${'CreateApplicant.Age' | t}</label>
         <input type="number" value.bind="createApplicantRequest.age &  validate "
           placeholder="${'CreateApplicant.AgePlaceholder' | t}"
-          class="${ageErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}">
+          class="${ageErrors.length > 0 ? 'form-control border border-danger' : 'form-control'}" autocomplete="new-age">
         <ul if.bind="ageErrors">
           <li repeat.for="error of ageErrors">
             ${error.error.message}
@@ -87,13 +91,18 @@
         </label>
       </div>
     </div>
-    <button type="button" click.delegate="submit()"
-      disabled.bind="(validationControllerFactory.errors.length > 0 || loading) || !isFormTouched"
+    <button type="button" click.delegate="submit()" disabled.bind="!isFormValid || loading"
       class="btn btn-primary">${'CreateApplicant.Save' | t}</button>
     <button type="button" click.delegate="reset()" disabled.bind="!isFormTouched || loading"
       class="btn btn-danger">${'CreateApplicant.Reset' | t}</button>
     <span if.bind="loading">
       <i class="fa fa-spinner fa-spin fa-lg"></i>
     </span>
+    <br />
+    <div if.bind="apiErrorMessages">
+      <li class="alert alert-danger" role="alert" repeat.for="error of apiErrorMessages">
+        ${error}
+      </li>
+    </div>
   </form>
 </template>

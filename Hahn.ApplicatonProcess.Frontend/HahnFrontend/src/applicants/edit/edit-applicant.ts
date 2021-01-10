@@ -18,6 +18,7 @@ export class EditApplicant {
   private readonly router: Router;
   applicantId: number;
   public loading = false;
+  public apiErrorMessages: string[] = [];
 
   constructor(_applicantService: ApplicantService, _countryService: CountryService, controller: ValidationControllerFactory, _i18n: I18N,
     _router: Router) {
@@ -63,10 +64,17 @@ export class EditApplicant {
 
   public submit(): void {
     this.loading = true;
+    this.apiErrorMessages = [];
     this.applicantService.editApplicant(this.editApplicantRequest).then(result => {
       this.loading = false;
       if (result && result.success) {
         this.router.navigate("applicants/request-confirmation");
+      } else {
+        this.apiErrorMessages = [];
+        const mappedResult: KeyValuePair<string, string>[] = result.data;
+        mappedResult.map((item, index) => {
+          this.apiErrorMessages.push(item.value);
+        });
       }
     });
   }
@@ -75,5 +83,23 @@ export class EditApplicant {
     this.router.navigate("applicants/list");
   }
 
+  public get isFormTouched(): boolean {
+    if (
+      (this.editApplicantRequest.address !== "" && this.editApplicantRequest.address !== undefined) ||
+      this.editApplicantRequest.age !== undefined ||
+      (this.editApplicantRequest.countryOfOrigin !== "" && this.editApplicantRequest.countryOfOrigin !== undefined) ||
+      (this.editApplicantRequest.emailAddress !== "" && this.editApplicantRequest.emailAddress !== undefined) ||
+      (this.editApplicantRequest.familyName !== "" && this.editApplicantRequest.familyName !== undefined) ||
+      (this.editApplicantRequest.name !== "" && this.editApplicantRequest.name !== undefined)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
+  public get isFormValid(): boolean {
+    return (this.isFormTouched
+      && (this.validationControllerFactory.errors === null || this.validationControllerFactory.errors.length === 0));
+  }
 }

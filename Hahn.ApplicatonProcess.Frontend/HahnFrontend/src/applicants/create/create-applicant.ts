@@ -56,7 +56,7 @@ export class CreateApplicant {
     this.applicantService.createApplicant(this.createApplicantRequest).then(result => {
       this.loading = false;
       if (result && result.success) {
-        this.router.navigate("applicants/list");
+        this.router.navigate("applicants/request-confirmation");
       }
     });
   }

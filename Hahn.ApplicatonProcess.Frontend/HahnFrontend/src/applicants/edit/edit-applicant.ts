@@ -66,7 +66,7 @@ export class EditApplicant {
     this.applicantService.editApplicant(this.editApplicantRequest).then(result => {
       this.loading = false;
       if (result && result.success) {
-        this.router.navigate("applicants/list");
+        this.router.navigate("applicants/request-confirmation");
       }
     });
   }

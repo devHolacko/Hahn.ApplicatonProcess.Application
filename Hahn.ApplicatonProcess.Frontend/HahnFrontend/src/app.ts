@@ -40,6 +40,10 @@ export class App {
         moduleId: PLATFORM.moduleName("./applicants/edit/edit-applicant"), title: "Edit Applicant"
       },
       {
+        route: "applicants/request-confirmation", name: "applicants/request-confirmation",
+        moduleId: PLATFORM.moduleName("./applicants/request-confirmation/request-confirmation"), title: "Request Confirmation"
+      },
+      {
         route: "",
         redirect: "applicants/list"
       }

@@ -6,7 +6,9 @@
     "De": "De",
     "New": "New",
     "Yes": "Yes",
-    "No": "No"
+    "No": "No",
+    "GoToApplicants": "View Applicants",
+    "CreateApplicant": "Create new Applicant"
   },
   "CreateApplicant": {
     "Title": "Create a new applicant",
@@ -65,6 +67,7 @@
     "AgeMin": "Age must be at least {{minAge}}",
     "AgeMax": "Age must be maximum {{maxAge}}",
     "ResetFormConfirmation": "You are about to reset this form. Are you sure ?",
-    "Reset": "Reset"
+    "Reset": "Reset",
+    "RequestSuccess": "Request completed successfully"
   }
 }

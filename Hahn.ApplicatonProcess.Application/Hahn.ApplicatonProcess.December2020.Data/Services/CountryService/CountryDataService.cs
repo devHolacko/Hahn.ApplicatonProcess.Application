@@ -21,7 +21,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.CountryService
         {
             using (HttpClient client = new HttpClient())
             {
-                var countryEncoded = HttpUtility.UrlEncode(country);
+                var countryEncoded = Uri.EscapeUriString(country);
                 string fullRequestUrl = $"{_apiUrl}/name/{countryEncoded}";
                 HttpResponseMessage response = await client.GetAsync(fullRequestUrl);
                 return response.IsSuccessStatusCode;

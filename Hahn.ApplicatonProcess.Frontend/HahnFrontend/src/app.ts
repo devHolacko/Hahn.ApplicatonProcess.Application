@@ -7,10 +7,19 @@ export class App {
   router: Router;
   localization: I18N;
   static inject = [I18N];
-  public currentLocale = "en";
+  public currentLocale: string;
   constructor(i18n: I18N) {
     this.localization = i18n;
-    i18n.setLocale(this.currentLocale).then();
+    const currentLanguage = localStorage.getItem("lang");
+    console.log({ currentLanguage });
+    if (currentLanguage == null) {
+      this.currentLocale = "en";
+      localStorage.setItem("lang", this.currentLocale);
+      i18n.setLocale(this.currentLocale).then();
+    } else {
+      this.currentLocale = currentLanguage;
+      i18n.setLocale(currentLanguage).then();
+    }
   }
 
   configureRouter(config: RouterConfiguration, router: Router): void {
@@ -37,5 +46,11 @@ export class App {
       }
     ]);
     this.router = router;
+  }
+
+  public setLanguage(language: string): void {
+    localStorage.setItem("lang", language);
+    this.localization.setLocale(language).then();
+    location.reload();
   }
 }

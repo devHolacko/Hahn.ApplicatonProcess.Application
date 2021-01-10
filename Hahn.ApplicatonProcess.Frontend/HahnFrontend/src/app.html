@@ -16,9 +16,11 @@
             ${'General.Language' | t}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" class.bind="currentLocale == 'en' ? 'bold-content' : ''" href="#">${'General.En' |
+            <a class="dropdown-item" click.delegate="setLanguage('en')"
+              class.bind="currentLocale == 'en' ? 'bold-content' : ''" href="#">${'General.En' |
               t}</a>
-            <a class="dropdown-item" class.bind="currentLocale == 'de' ? 'bold-content' : ''" href="#">${'General.De' |
+            <a class="dropdown-item" click.delegate="setLanguage('de')"
+              class.bind="currentLocale == 'de' ? 'bold-content' : ''" href="#">${'General.De' |
               t}</a>
           </div>
         </li>

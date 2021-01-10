@@ -170,8 +170,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DataGenericResponse<List<ApplicantListItem>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(GenericResponse))]
-        [Route("size/{pageSize}/page/{pageNumber}")]
-        public IActionResult Get([FromRoute(Name = "pageSize")] int pageSize, [FromRoute(Name = "pageNumber")] int pageNumber, string search = "")
+        [Route("list")]
+        public IActionResult GetAll(string search = "")
         {
             List<Applicant> applicants = _applicantDataService.GetApplicantsWithPaging(search);
             if (applicants == null)

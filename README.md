@@ -4,7 +4,9 @@ Hahn.ApplicatonProcess.Application is an application for applicants management w
 
 ## Installation
 
-- Make sure you installed node, aurelia, .NET 5 sdk and Visual Studio 2019
+- Make sure you installed git, node, aurelia, .NET 5 sdk and Visual Studio 2019
+- Checkout the master branch
+- Clone the repository
 - Open Hahn.ApplicatonProcess.Application solution and run the project. (The packages will be installed at the first time using nuget)
 - Open the CMD in Hahn.ApplicatonProcess.Frontend then go to HahnFrontend.
 - Run "npm install"

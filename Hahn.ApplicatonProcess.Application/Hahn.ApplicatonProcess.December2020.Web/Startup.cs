@@ -5,7 +5,6 @@ using Hahn.ApplicatonProcess.December2020.Data.Services.CountryService;
 using Hahn.ApplicatonProcess.December2020.Domain.Interfaces;
 using Hahn.ApplicatonProcess.December2020.Web.Extensions;
 using Hahn.ApplicatonProcess.December2020.Web.Mappings;
-using Hahn.ApplicatonProcess.December2020.Web.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

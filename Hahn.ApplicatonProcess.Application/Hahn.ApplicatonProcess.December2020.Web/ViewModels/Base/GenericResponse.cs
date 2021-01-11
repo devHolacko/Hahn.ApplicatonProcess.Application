@@ -8,6 +8,5 @@ namespace Hahn.ApplicatonProcess.December2020.Web.ViewModels.Base
     public class GenericResponse
     {
         public bool Success { get; set; }
-        public string Message { get; set; }
     }
 }

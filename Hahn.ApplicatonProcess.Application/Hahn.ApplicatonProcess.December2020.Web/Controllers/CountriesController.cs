@@ -3,6 +3,8 @@ using Hahn.ApplicatonProcess.December2020.Web.ViewModels.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
     public class CountriesController : BaseApiController
     {
         private readonly ICountryDataService _countryDataService;
-        public CountriesController(ICountryDataService countryDataService)
+        public CountriesController(ICountryDataService countryDataService, IConfiguration configuration)
+            : base(configuration)
         {
             _countryDataService = countryDataService;
         }
@@ -31,8 +34,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DataGenericResponse<List<KeyValuePair<string, string>>>))]
         public async Task<IActionResult> GetCountriesLookup()
         {
-            List<KeyValuePair<string, string>> countries = await _countryDataService.GetCountries();
+            Log.Information("Calling get countries lookup api");
+            List <KeyValuePair<string, string>> countries = await _countryDataService.GetCountries();
             DataGenericResponse<List<KeyValuePair<string, string>>> response = new DataGenericResponse<List<KeyValuePair<string, string>>> { Success = true, Data = countries };
+            if(response != null)
+            {
+                throw new NotImplementedException("Not implemented");
+            }
+            Log.Information("Request completed");
             return new OkObjectResult(response);
         }
     }

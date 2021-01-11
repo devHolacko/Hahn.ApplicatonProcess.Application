@@ -3,7 +3,9 @@ using Hahn.ApplicatonProcess.December2020.Data.Context;
 using Hahn.ApplicatonProcess.December2020.Data.Services.ApplicantService;
 using Hahn.ApplicatonProcess.December2020.Data.Services.CountryService;
 using Hahn.ApplicatonProcess.December2020.Domain.Interfaces;
+using Hahn.ApplicatonProcess.December2020.Web.Extensions;
 using Hahn.ApplicatonProcess.December2020.Web.Mappings;
+using Hahn.ApplicatonProcess.December2020.Web.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +42,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +54,8 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             {
                 options.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
             });
+
+            app.ConfigureExceptionHandler(Configuration);
 
             app.UseHttpsRedirection();
 

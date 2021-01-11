@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Collections.Generic;
 
 namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
@@ -25,12 +27,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
         public ApplicantController(IApplicantDataService applicantDataService, ICountryDataService countryDataService, IConfiguration configuration, IMapper mapper)
+            : base(configuration)
         {
             //_localizer = localizer;
             _applicantDataService = applicantDataService;
             _countryDataService = countryDataService;
             _configuration = configuration;
             _mapper = mapper;
+
         }
 
         /// <summary>
@@ -46,14 +50,19 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(GenericResponse))]
         public IActionResult Get([FromRoute(Name = "id")] int id)
         {
+            Log.Information($"Calling get applicant by id api for id : {id}");
             Applicant applicant = _applicantDataService.Get(id);
             if (applicant == null)
             {
+                Log.Warning($"Applicant with id : {id} cannot be found");
                 GenericResponse failureResponse = new GenericResponse { Success = false };
                 return new NotFoundObjectResult(failureResponse);
             }
+            Log.Information("Applicant found");
             ApplicantViewModel mappedApplicant = _mapper.Map<ApplicantViewModel>(applicant);
+            Log.Information("Applicant mapped");
             DataGenericResponse<ApplicantViewModel> response = new DataGenericResponse<ApplicantViewModel> { Success = true, Data = mappedApplicant };
+            Log.Information("Request completed");
             return new OkObjectResult(response);
         }
 
@@ -71,10 +80,13 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DataGenericResponse<List<KeyValuePair<string, string>>>))]
         public IActionResult Create([FromBody] CreateApplicantViewModel request)
         {
+            Log.Information("Calling create applicant api");
             CreateApplicantViewModelValidator validator = new CreateApplicantViewModelValidator(_countryDataService, _applicantDataService, _configuration);
+            Log.Information("Request is being validated");
             var validationResult = validator.Validate(request);
             if (!validationResult.IsValid)
             {
+                Log.Warning("Request is not valid");
                 DataGenericResponse<List<KeyValuePair<string, string>>> failureResponse = new DataGenericResponse<List<KeyValuePair<string, string>>>();
                 failureResponse.Success = false;
                 failureResponse.Data = new List<KeyValuePair<string, string>>();
@@ -84,15 +96,20 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
                 }
                 return new BadRequestObjectResult(failureResponse);
             }
+            Log.Information("Mapping request to applicant model");
             Applicant mappedApplicant = _mapper.Map<Applicant>(request);
+            Log.Information("Creating new applicant");
             int createdApplicantId = _applicantDataService.Create(mappedApplicant);
             DataGenericResponse<int> response = new DataGenericResponse<int>();
             if (createdApplicantId > 0)
             {
+                Log.Information("Applicant created successfully");
                 response.Success = true;
                 response.Data = createdApplicantId;
+                return new OkObjectResult(response);
             }
-            return new OkObjectResult(response);
+            Log.Warning("Error occured while creating applicant");
+            return new OkObjectResult(new DataGenericResponse<int> { Success = false });
         }
 
         /// <summary>
@@ -106,11 +123,14 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [ProducesResponseType(typeof(DataGenericResponse<List<KeyValuePair<string, string>>>), 400)]
         public IActionResult Update([FromBody] UpdateApplicantViewModel request)
         {
+            Log.Information("Calling update applicant api");
             UpdateApplicantViewModelValidator validator = new UpdateApplicantViewModelValidator(_countryDataService, _applicantDataService, _configuration);
+            Log.Information("Request is being validated");
             var validationResult = validator.Validate(request);
             if (!validationResult.IsValid)
             {
-                DataGenericResponse<List<KeyValuePair<string, string>>> failureResponse = new DataGenericResponse<List<KeyValuePair<string, string>>>();
+                Log.Warning("Request is not valid");
+                DataGenericResponse <List<KeyValuePair<string, string>>> failureResponse = new DataGenericResponse<List<KeyValuePair<string, string>>>();
                 failureResponse.Success = false;
                 failureResponse.Data = new List<KeyValuePair<string, string>>();
                 foreach (var error in validationResult.Errors)
@@ -119,20 +139,22 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
                 }
                 return new BadRequestObjectResult(failureResponse);
             }
-
+            Log.Information("Checking if applicant exists");
             Applicant originalApplicant = _applicantDataService.Get(request.Id);
             if (originalApplicant == null)
             {
+                Log.Warning("Applicant not found");
                 GenericResponse notFoundResponse = new GenericResponse() { Success = false };
                 return new NotFoundObjectResult(notFoundResponse);
             }
-
+            Log.Information("Mapping request");
             Applicant mappedApplicant = _mapper.Map<Applicant>(request);
             mappedApplicant.CreatedOn = originalApplicant.CreatedOn;
             mappedApplicant.ModifiedOn = originalApplicant.ModifiedOn;
+            Log.Information("Updating applicant");
             bool result = _applicantDataService.Update(mappedApplicant);
             GenericResponse response = new GenericResponse { Success = result };
-
+            Log.Information("Request completed");
             return new OkObjectResult(response);
         }
 
@@ -149,14 +171,19 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(GenericResponse))]
         public IActionResult Delete([FromRoute(Name = "id")] int id)
         {
+            Log.Information("Calling delete applicant by id api");
+            Log.Information("Checking if applicant with given id exists");
             Applicant applicant = _applicantDataService.Get(id);
             if (applicant == null)
             {
+                Log.Warning("Applicant not found");
                 GenericResponse failureResponse = new GenericResponse { Success = false };
                 return new NotFoundObjectResult(failureResponse);
             }
+            Log.Information("Deleting applicant");
             bool result = _applicantDataService.Delete(id);
             GenericResponse response = new GenericResponse { Success = result };
+            Log.Information("Request completed");
             return new OkObjectResult(response);
         }
 
@@ -173,14 +200,19 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers
         [Route("list")]
         public IActionResult GetAll()
         {
-            List<Applicant> applicants = _applicantDataService.GetApplicantsList();
+            Log.Information("Calling get applicants list api");
+            List <Applicant> applicants = _applicantDataService.GetApplicantsList();
             if (applicants == null)
             {
+                Log.Warning("No applicants found");
                 GenericResponse failureResponse = new GenericResponse { Success = false };
                 return new NotFoundObjectResult(failureResponse);
             }
-            List<ApplicantListItem> mappedApplicants = _mapper.Map<List<ApplicantListItem>>(applicants);
+            Log.Information("Applicants found!");
+            Log.Information("Mapping applicants");
+            List <ApplicantListItem> mappedApplicants = _mapper.Map<List<ApplicantListItem>>(applicants);
             DataGenericResponse<List<ApplicantListItem>> response = new DataGenericResponse<List<ApplicantListItem>> { Success = true, Data = mappedApplicants };
+            Log.Information("Request completed");
             return new OkObjectResult(response);
         }
     }
